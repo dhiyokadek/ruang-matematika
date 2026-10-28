@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruang Matematika - Belajar Matematika Seru & Mudah!</title>
+
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#FAF6EE',
+            },
+            pastelBlue: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              400: '#38BDF8',
+              800: '#075985',
+            },
+            pastelAmber: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              800: '#92400E',
+            },
+            pastelMint: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              800: '#166534',
+            },
+            pastelRose: {
+              50: '#FFF1F2',
+              100: '#FFE4E6',
+              200: '#FECDD3',
+              800: '#9F1239',
+            },
+            pastelPurple: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              800: '#6B21A8',
+            },
+            slateText: '#1E293B',
+          },
+          boxShadow: {
+            'playful': '0 8px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-hover': '0 4px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-blue': '0 8px 0 0 rgba(186, 230, 253, 0.8)',
+            'playful-amber': '0 8px 0 0 rgba(253, 230, 138, 0.8)',
+            'playful-mint': '0 8px 0 0 rgba(187, 247, 208, 0.8)',
+            'playful-rose': '0 8px 0 0 rgba(254, 205, 211, 0.8)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- KaTeX CDN for Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Styling for smooth playful UI */
+    body {
+      background-color: #FDFBF7;
+      color: #1E293B;
+    }
+    .katex-display {
+      margin: 0.5em 0 !important;
+    }
+    .dropdown-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    /* Playful bouncing decorative elements */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(8px) rotate(-2deg); }
+    }
+    .animate-float-slow {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    .animate-float-reverse {
+      animation: floatReverse 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased text-slate-800 bg-[#FDFBF7]">
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="sticky top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-stone-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-sky-300 rounded-xl p-1">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-200 to-indigo-100 border-2 border-sky-300 flex items-center justify-center text-sky-800 shadow-sm group-hover:scale-105 transition-transform duration-200">
+            <i data-lucide="calculator" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-sky-700 transition-colors">
+              Ruang<span class="text-sky-600">Matematika</span>
+            </span>
+            <span class="text-[11px] font-semibold text-slate-500 tracking-wider uppercase -mt-1">Belajar Interaktif</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-sm font-semibold text-slate-700">
+          <!-- Beranda -->
+          <a href="index.html" class="px-3.5 py-2 rounded-xl text-sky-700 bg-sky-50 font-bold border border-sky-100/80 hover:bg-sky-100 transition-colors">
+            Beranda
+          </a>
+
+          <!-- Dropdown SMP -->
+          <div class="relative dropdown group py-2">
+            <button type="button" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:text-sky-700 hover:bg-sky-50/70 transition-colors focus:outline-none" aria-haspopup="true">
+              <span>SMP</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-hover:text-sky-600 transition-transform group-hover:rotate-180 duration-200"></i>
+            </button>
+            <div class="dropdown-menu absolute left-0 top-full w-56 pt-1 z-50">
+              <div class="bg-white rounded-2xl border-2 border-sky-100 shadow-xl shadow-sky-900/5 p-2 space-y-1">
+                <div class="px-3 py-1.5 text-xs font-bold text-sky-800 uppercase tracking-wider bg-sky-50/80 rounded-lg">
+                  Jenjang SMP
+                </div>
+                <a href="post-detail.html?id=1" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">7</span>
+                    <span>Kelas 7 SMP</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="#smp-kelas-8" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">8</span>
+                    <span>Kelas 8 SMP</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="#smp-kelas-9" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">9</span>
+                    <span>Kelas 9 SMP</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dropdown SMA -->
+          <div class="relative dropdown group py-2">
+            <button type="button" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:text-amber-700 hover:bg-amber-50/70 transition-colors focus:outline-none" aria-haspopup="true">
+              <span>SMA</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-transform group-hover:rotate-180 duration-200"></i>
+            </button>
+            <div class="dropdown-menu absolute left-0 top-full w-56 pt-1 z-50">
+              <div class="bg-white rounded-2xl border-2 border-amber-100 shadow-xl shadow-amber-900/5 p-2 space-y-1">
+                <div class="px-3 py-1.5 text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-50/80 rounded-lg">
+                  Jenjang SMA
+                </div>
+                <a href="#sma-kelas-10" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">10</span>
+                    <span>Kelas 10 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="#sma-kelas-11" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">11</span>
+                    <span>Kelas 11 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="#sma-kelas-12" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">12</span>
+                    <span>Kelas 12 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank Soal -->
+          <a href="#bank-soal" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:text-emerald-700 hover:bg-emerald-50/70 transition-colors">
+            <i data-lucide="file-question" class="w-4 h-4 text-emerald-600"></i>
+            <span>Bank Soal</span>
+            <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 rounded-md">Baru</span>
+          </a>
+        </nav>
+
+        <!-- Search Bar and Action Button -->
+        <div class="flex items-center gap-3">
+          <!-- Search Bar -->
+          <div class="relative hidden sm:block w-52 md:w-64">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </div>
+            <input 
+              type="text" 
+              id="header-search-input"
+              placeholder="Cari topik atau rumus..." 
+              class="w-full pl-9 pr-8 py-2 text-sm bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 transition-all shadow-sm placeholder-slate-400 font-medium"
+            >
+            <div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+              <kbd class="hidden md:inline-block px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 bg-stone-100 border border-stone-200 rounded">⌘K</kbd>
+            </div>
+          </div>
+
+          <!-- Login/Mulai CTA -->
+          <a href="#materi-terbaru" class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-800 bg-amber-100 hover:bg-amber-200 border-2 border-amber-300 rounded-xl transition-transform active:translate-y-0.5 shadow-playful-hover">
+            <span>Mulai Belajar</span>
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-700"></i>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button 
+            type="button" 
+            id="mobile-menu-btn"
+            class="lg:hidden p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-300"
+            aria-label="Buka Menu Navigasi"
+          >
+            <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Search Field (Small screens only) -->
+      <div class="sm:hidden pb-3">
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+          <input 
+            type="text" 
+            placeholder="Cari topik atau rumus KaTeX..." 
+            class="w-full pl-9 pr-3 py-2 text-sm bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-300 placeholder-slate-400"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-[#FDFBF7] px-4 pt-3 pb-6 space-y-3">
+      <div class="flex flex-col space-y-1 text-sm font-semibold">
+        <a href="index.html" class="px-4 py-2.5 rounded-xl bg-sky-100/70 text-sky-800 font-bold">Beranda</a>
+        
+        <!-- Mobile Accordion SMP -->
+        <div class="border border-stone-200/80 rounded-xl bg-white overflow-hidden">
+          <button type="button" id="mobile-smp-toggle" class="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-800 hover:bg-stone-50">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-sky-100 text-sky-700 flex items-center justify-center text-xs">SMP</span>
+              Jenjang SMP
+            </span>
+            <i data-lucide="chevron-down" id="mobile-smp-arrow" class="w-4 h-4 transition-transform duration-200"></i>
+          </button>
+          <div id="mobile-smp-content" class="hidden bg-sky-50/40 px-4 py-2 space-y-1.5 border-t border-stone-100 text-xs font-semibold">
+            <a href="post-detail.html?id=1" class="block py-1.5 px-3 rounded-lg hover:bg-sky-100/70 text-slate-700">Kelas 7 SMP (Aritmetika Sosial, Aljabar Dasar)</a>
+            <a href="#smp-kelas-8" class="block py-1.5 px-3 rounded-lg hover:bg-sky-100/70 text-slate-700">Kelas 8 SMP (Pythagoras, Relasi Fungsi)</a>
+            <a href="#smp-kelas-9" class="block py-1.5 px-3 rounded-lg hover:bg-sky-100/70 text-slate-700">Kelas 9 SMP (Bangun Ruang, Transformasi)</a>
+          </div>
+        </div>
+
+        <!-- Mobile Accordion SMA -->
+        <div class="border border-stone-200/80 rounded-xl bg-white overflow-hidden">
+          <button type="button" id="mobile-sma-toggle" class="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-800 hover:bg-stone-50">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center text-xs">SMA</span>
+              Jenjang SMA
+            </span>
+            <i data-lucide="chevron-down" id="mobile-sma-arrow" class="w-4 h-4 transition-transform duration-200"></i>
+          </button>
+          <div id="mobile-sma-content" class="hidden bg-amber-50/40 px-4 py-2 space-y-1.5 border-t border-stone-100 text-xs font-semibold">
+            <a href="#sma-kelas-10" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 10 SMA (Eksponen, Logaritma, Trigonometri)</a>
+            <a href="#sma-kelas-11" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 11 SMA (Turunan, Integral, Matriks)</a>
+            <a href="#sma-kelas-12" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 12 SMA (Dimensi Tiga, Peluang & Statistika)</a>
+          </div>
+        </div>
+
+        <a href="#bank-soal" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 font-bold">
+          <span class="flex items-center gap-2">
+            <i data-lucide="file-question" class="w-4 h-4 text-emerald-600"></i>
+            Bank Soal
+          </span>
+          <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded-full">Lengkap</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <main class="flex-grow">
+    <section class="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 border-b border-stone-200/60 bg-gradient-to-b from-[#FDFBF7] via-sky-50/30 to-[#FDFBF7]">
+      <!-- Background Decorative Soft Gradients & Floating Math Badges -->
+      <div class="absolute -top-16 -left-16 w-80 h-80 bg-sky-100/50 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute top-32 -right-16 w-80 h-80 bg-amber-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Floating Math Pills (Playful Pastel Accents) -->
+      <div class="hidden md:flex absolute top-12 left-10 lg:left-24 bg-white/90 backdrop-blur-sm border-2 border-sky-100 px-3.5 py-1.5 rounded-2xl shadow-sm items-center gap-2 animate-float-slow pointer-events-none text-sky-800 font-medium text-xs">
+        <i data-lucide="compass" class="w-4 h-4 text-sky-500"></i>
+        <span>Pythagoras:</span>
+        <span class="font-mono font-bold">$a^2 + b^2 = c^2$</span>
+      </div>
+
+      <div class="hidden md:flex absolute top-20 right-10 lg:right-28 bg-white/90 backdrop-blur-sm border-2 border-amber-100 px-3.5 py-1.5 rounded-2xl shadow-sm items-center gap-2 animate-float-reverse pointer-events-none text-amber-800 font-medium text-xs">
+        <i data-lucide="pie-chart" class="w-4 h-4 text-amber-500"></i>
+        <span>Lingkaran:</span>
+        <span class="font-mono font-bold">$L = \pi r^2$</span>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Hero Text -->
+        <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/90 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold mb-5 shadow-sm">
+            <i data-lucide="smile" class="w-4 h-4 text-emerald-600"></i>
+            <span>Platform Pembelajaran Matematika Kurikulum Merdeka</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-5">
+            Belajar Matematika <br class="hidden sm:inline" />
+            <span class="relative inline-block text-sky-700">
+              Seru &amp; Mudah!
+              <!-- Soft playful highlight stroke -->
+              <span class="absolute bottom-1 left-0 w-full h-3 bg-sky-200/60 -z-10 rounded-full transform -rotate-1"></span>
+            </span>
+          </h1>
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-8 max-w-2xl mx-auto">
+            Kuasai konsep matematika dari dasar hingga mahir dengan penjelasan visual interaktif, video pembahasan mendalam, dan rangkuman rumus ringkas untuk jenjang <strong class="text-slate-800 font-bold">SMP &amp; SMA</strong>.
+          </p>
+
+          <!-- Action CTA Buttons -->
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a href="#jenjang-utama" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm shadow-md shadow-sky-600/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+              <span>Eksplorasi Jenjang</span>
+            </a>
+            <a href="#materi-terbaru" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-stone-50 border-2 border-stone-200 text-slate-700 font-bold text-sm shadow-playful hover:shadow-playful-hover active:translate-y-1 transition-all">
+              <i data-lucide="layers" class="w-4 h-4 text-slate-500"></i>
+              <span>Materi Terbaru</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2 Kad Jenjang Utama (SMP & SMA) dengan Warna Pastel -->
+        <div id="jenjang-utama" class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          
+          <!-- KAD JENJANG SMP -->
+          <div class="group relative rounded-3xl bg-gradient-to-b from-[#E0F2FE] to-[#F0F9FF] border-2 border-sky-200 p-6 sm:p-8 shadow-playful-blue transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+            <!-- Top Tag & Icon -->
+            <div class="flex items-start justify-between mb-5">
+              <div class="w-14 h-14 rounded-2xl bg-white/90 border-2 border-sky-200 flex items-center justify-center text-sky-700 shadow-sm group-hover:rotate-3 transition-transform">
+                <i data-lucide="backpack" class="w-7 h-7 stroke-[2.2]"></i>
+              </div>
+              <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-sky-200 text-xs font-bold text-sky-800 shadow-sm">
+                <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+                <span>Tingkat Dasar</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="mb-6">
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-sky-950 mb-2">
+                Jenjang SMP
+              </h3>
+              <p class="text-sm text-sky-900/80 leading-relaxed font-medium">
+                Pondasi logika angka, persamaan aljabar dasar, bangun datar &amp; ruang, serta pengenalan awal statistika praktis.
+              </p>
+            </div>
+
+            <!-- Grade Badges -->
+            <div class="flex flex-wrap items-center gap-2 mb-6">
+              <a href="#smp-kelas-7" class="px-3 py-1.5 rounded-xl bg-white text-sky-800 text-xs font-bold border border-sky-200 shadow-sm hover:bg-sky-50 transition-colors">
+                Kelas 7
+              </a>
+              <a href="#smp-kelas-8" class="px-3 py-1.5 rounded-xl bg-white text-sky-800 text-xs font-bold border border-sky-200 shadow-sm hover:bg-sky-50 transition-colors">
+                Kelas 8
+              </a>
+              <a href="#smp-kelas-9" class="px-3 py-1.5 rounded-xl bg-white text-sky-800 text-xs font-bold border border-sky-200 shadow-sm hover:bg-sky-50 transition-colors">
+                Kelas 9
+              </a>
+              <span class="text-xs font-semibold text-sky-700/80 pl-1">Total 18 Bab Lengkap</span>
+            </div>
+
+            <!-- Sample Highlight Formula in KaTeX -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-sky-200/80 mb-6 flex items-center justify-between text-xs text-slate-700">
+              <span class="font-bold text-sky-800">Rumus Kunci:</span>
+              <span class="font-mono text-sm text-slate-900">$$(a+b)^2 = a^2 + 2ab + b^2$$</span>
+            </div>
+
+            <!-- Button Action -->
+            <a href="#materi-terbaru" class="w-full inline-flex items-center justify-between px-5 py-3 rounded-2xl bg-white hover:bg-sky-500 hover:text-white border-2 border-sky-300 text-sky-800 font-bold text-sm shadow-sm transition-all duration-200 group/btn">
+              <span>Masuk Kelas SMP</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+
+          <!-- KAD JENJANG SMA -->
+          <div class="group relative rounded-3xl bg-gradient-to-b from-[#FEF3C7] to-[#FFFBEB] border-2 border-amber-200 p-6 sm:p-8 shadow-playful-amber transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+            <!-- Top Tag & Icon -->
+            <div class="flex items-start justify-between mb-5">
+              <div class="w-14 h-14 rounded-2xl bg-white/90 border-2 border-amber-200 flex items-center justify-center text-amber-800 shadow-sm group-hover:-rotate-3 transition-transform">
+                <i data-lucide="function-square" class="w-7 h-7 stroke-[2.2]"></i>
+              </div>
+              <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 border border-amber-200 text-xs font-bold text-amber-800 shadow-sm">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                <span>Tingkat Lanjut</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="mb-6">
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-amber-950 mb-2">
+                Jenjang SMA
+              </h3>
+              <p class="text-sm text-amber-900/80 leading-relaxed font-medium">
+                Kupas tuntas trigonometri analitik, limit, turunan &amp; integral kalkulus, matriks, hingga persiapan SNBT &amp; UTBK.
+              </p>
+            </div>
+
+            <!-- Grade Badges -->
+            <div class="flex flex-wrap items-center gap-2 mb-6">
+              <a href="#sma-kelas-10" class="px-3 py-1.5 rounded-xl bg-white text-amber-800 text-xs font-bold border border-amber-200 shadow-sm hover:bg-amber-50 transition-colors">
+                Kelas 10
+              </a>
+              <a href="#sma-kelas-11" class="px-3 py-1.5 rounded-xl bg-white text-amber-800 text-xs font-bold border border-amber-200 shadow-sm hover:bg-amber-50 transition-colors">
+                Kelas 11
+              </a>
+              <a href="#sma-kelas-12" class="px-3 py-1.5 rounded-xl bg-white text-amber-800 text-xs font-bold border border-amber-200 shadow-sm hover:bg-amber-50 transition-colors">
+                Kelas 12
+              </a>
+              <span class="text-xs font-semibold text-amber-700/80 pl-1">Total 24 Bab Lengkap</span>
+            </div>
+
+            <!-- Sample Highlight Formula in KaTeX -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-3 border border-amber-200/80 mb-6 flex items-center justify-between text-xs text-slate-700">
+              <span class="font-bold text-amber-800">Rumus Kunci:</span>
+              <span class="font-mono text-sm text-slate-900">$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$</span>
+            </div>
+
+            <!-- Button Action -->
+            <a href="#materi-terbaru" class="w-full inline-flex items-center justify-between px-5 py-3 rounded-2xl bg-white hover:bg-amber-500 hover:text-white border-2 border-amber-300 text-amber-800 font-bold text-sm shadow-sm transition-all duration-200 group/btn">
+              <span>Masuk Kelas SMA</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GRID MATERI TERBARU ================= -->
+    <section id="materi-terbaru" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 border border-emerald-200">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Kurikulum Terkini</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Materi &amp; Topik Terbaru
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-xl font-medium">
+            Jelajahi rangkuman konsep esensial yang dilengkapi visualisasi rumus KaTeX dan video pembelajaran interaktif.
+          </p>
+        </div>
+
+        <!-- Filter Pill Tabs -->
+        <div class="flex items-center flex-wrap gap-2 text-xs font-bold" id="materi-filter">
+          <button type="button" onclick="filterCards('ALL', this)" class="filter-tab-btn px-4 py-2 rounded-xl bg-slate-900 text-white shadow-sm transition-all">Semua Topik</button>
+          <button type="button" onclick="filterCards('SMP', this)" class="filter-tab-btn px-4 py-2 rounded-xl bg-white hover:bg-sky-50 text-sky-800 border border-stone-200 transition-all">SMP</button>
+          <button type="button" onclick="filterCards('SMA', this)" class="filter-tab-btn px-4 py-2 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-stone-200 transition-all">SMA</button>
+        </div>
+      </div>
+
+      <!-- 4 Cards Grid Asli Reka Bentuk A -->
+      <div id="grid-materi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- KAD 1: Aritmetika Sosial -->
+        <div class="materi-card flex flex-col bg-white rounded-3xl border-2 border-stone-200/90 hover:border-sky-300 p-5 shadow-playful hover:shadow-playful-blue transition-all duration-300 hover:-translate-y-1 group" data-level="SMP">
+          <!-- Card Header & Badge -->
+          <div class="flex items-center justify-between mb-3.5">
+            <span class="px-2.5 py-1 rounded-xl bg-sky-100 text-sky-800 text-xs font-extrabold border border-sky-200">
+              SMP Kelas 7
+            </span>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-stone-100 px-2 py-0.5 rounded-lg">
+              <i data-lucide="video" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span>12 Menit</span>
+            </div>
+          </div>
+
+          <!-- Title & Category -->
+          <div class="mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Aljabar &amp; Finansial</span>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-sky-700 transition-colors mt-0.5">
+              Aritmetika Sosial
+            </h3>
+          </div>
+
+          <!-- Description -->
+          <p class="text-xs text-slate-600 leading-relaxed font-medium mb-4 flex-grow">
+            Mempelajari perhitungan untung, rugi, persentase laba, diskon (rabat), serta perhitungan bunga tunggal dan pajak.
+          </p>
+
+          <!-- KaTeX Formula Container -->
+          <div class="bg-sky-50/80 rounded-2xl p-3 border border-sky-100 mb-4 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-sky-800 block mb-1">Rumus Utama</span>
+            <div class="font-mono text-xs text-slate-800 overflow-x-auto py-1">
+              $$\text{Untung} = \text{HJ} - \text{HB}$$
+              $$\%U = \frac{\text{Untung}}{\text{HB}} \times 100\%$$
+            </div>
+          </div>
+
+          <!-- Card Footer Action -->
+          <a href="post-detail.html?id=1" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-sky-50 hover:bg-sky-600 text-sky-800 hover:text-white font-bold text-xs border border-sky-200 hover:border-transparent transition-all">
+            <span>Mulai Belajar</span>
+            <i data-lucide="play-circle" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- KAD 2: Teorema Pythagoras -->
+        <div class="materi-card flex flex-col bg-white rounded-3xl border-2 border-stone-200/90 hover:border-emerald-300 p-5 shadow-playful hover:shadow-playful-mint transition-all duration-300 hover:-translate-y-1 group" data-level="SMP">
+          <!-- Card Header & Badge -->
+          <div class="flex items-center justify-between mb-3.5">
+            <span class="px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-extrabold border border-emerald-200">
+              SMP Kelas 8
+            </span>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-stone-100 px-2 py-0.5 rounded-lg">
+              <i data-lucide="video" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span>18 Menit</span>
+            </div>
+          </div>
+
+          <!-- Title & Category -->
+          <div class="mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Geometri Bidang</span>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mt-0.5">
+              Teorema Pythagoras
+            </h3>
+          </div>
+
+          <!-- Description -->
+          <p class="text-xs text-slate-600 leading-relaxed font-medium mb-4 flex-grow">
+            Hubungan kuadrat sisi-sisi pada segitiga siku-siku, pembuktian visual geometris, serta menentukan tripel Pythagoras.
+          </p>
+
+          <!-- KaTeX Formula Container -->
+          <div class="bg-emerald-50/80 rounded-2xl p-3 border border-emerald-100 mb-4 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800 block mb-1">Rumus Utama</span>
+            <div class="font-mono text-xs text-slate-800 overflow-x-auto py-1">
+              $$c^2 = a^2 + b^2$$
+              $$c = \sqrt{a^2 + b^2}$$
+            </div>
+          </div>
+
+          <!-- Card Footer Action -->
+          <a href="post-detail.html?id=2" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-800 hover:text-white font-bold text-xs border border-emerald-200 hover:border-transparent transition-all">
+            <span>Mulai Belajar</span>
+            <i data-lucide="play-circle" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- KAD 3: Trigonometri Dasar -->
+        <div class="materi-card flex flex-col bg-white rounded-3xl border-2 border-stone-200/90 hover:border-amber-300 p-5 shadow-playful hover:shadow-playful-amber transition-all duration-300 hover:-translate-y-1 group" data-level="SMA">
+          <!-- Card Header & Badge -->
+          <div class="flex items-center justify-between mb-3.5">
+            <span class="px-2.5 py-1 rounded-xl bg-amber-100 text-amber-800 text-xs font-extrabold border border-amber-200">
+              SMA Kelas 10
+            </span>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-stone-100 px-2 py-0.5 rounded-lg">
+              <i data-lucide="video" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span>25 Menit</span>
+            </div>
+          </div>
+
+          <!-- Title & Category -->
+          <div class="mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Trigonometri</span>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-amber-700 transition-colors mt-0.5">
+              Trigonometri Dasar
+            </h3>
+          </div>
+
+          <!-- Description -->
+          <p class="text-xs text-slate-600 leading-relaxed font-medium mb-4 flex-grow">
+            Definisi rasio sinus, kosinus, tangen segitiga siku-siku, sudut istimewa $0^\circ \text{--} 90^\circ$, dan grafik dasar.
+          </p>
+
+          <!-- KaTeX Formula Container -->
+          <div class="bg-amber-50/80 rounded-2xl p-3 border border-amber-100 mb-4 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block mb-1">Rumus Utama</span>
+            <div class="font-mono text-xs text-slate-800 overflow-x-auto py-1">
+              $$\sin \theta = \frac{\text{depan}}{\text{miring}}$$
+              $$\tan \theta = \frac{\sin \theta}{\cos \theta}$$
+            </div>
+          </div>
+
+          <!-- Card Footer Action -->
+          <a href="post-detail.html?id=3" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-50 hover:bg-amber-500 text-amber-900 hover:text-white font-bold text-xs border border-amber-200 hover:border-transparent transition-all">
+            <span>Mulai Belajar</span>
+            <i data-lucide="play-circle" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- KAD 4: Turunan Fungsi Aljabar -->
+        <div class="materi-card flex flex-col bg-white rounded-3xl border-2 border-stone-200/90 hover:border-rose-300 p-5 shadow-playful hover:shadow-playful-rose transition-all duration-300 hover:-translate-y-1 group" data-level="SMA">
+          <!-- Card Header & Badge -->
+          <div class="flex items-center justify-between mb-3.5">
+            <span class="px-2.5 py-1 rounded-xl bg-rose-100 text-rose-800 text-xs font-extrabold border border-rose-200">
+              SMA Kelas 11
+            </span>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-stone-100 px-2 py-0.5 rounded-lg">
+              <i data-lucide="video" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span>20 Menit</span>
+            </div>
+          </div>
+
+          <!-- Title & Category -->
+          <div class="mb-3">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Kalkulus Diferensial</span>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-rose-700 transition-colors mt-0.5">
+              Turunan Fungsi
+            </h3>
+          </div>
+
+          <!-- Description -->
+          <p class="text-xs text-slate-600 leading-relaxed font-medium mb-4 flex-grow">
+            Konsep laju perubahan nilai sesaat, notasi Leibniz, aturan rantai, dan penentuan garis singgung kurva fungsi polinomial.
+          </p>
+
+          <!-- KaTeX Formula Container -->
+          <div class="bg-rose-50/80 rounded-2xl p-3 border border-rose-100 mb-4 text-center">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-rose-800 block mb-1">Rumus Utama</span>
+            <div class="font-mono text-xs text-slate-800 overflow-x-auto py-1">
+              $$f'(x) = \lim_{h \to 0}\frac{f(x+h)-f(x)}{h}$$
+              $$\frac{d}{dx}(x^n) = n x^{n-1}$$
+            </div>
+          </div>
+
+          <!-- Card Footer Action -->
+          <a href="post-detail.html?id=4" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-rose-50 hover:bg-rose-600 text-rose-800 hover:text-white font-bold text-xs border border-rose-200 hover:border-transparent transition-all">
+            <span>Mulai Belajar</span>
+            <i data-lucide="play-circle" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Quick Interactive Feature Banner -->
+      <div id="bank-soal" class="mt-14 rounded-3xl bg-gradient-to-r from-sky-100 via-mint-100 to-amber-100 border-2 border-stone-200/80 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-5">
+          <div class="w-14 h-14 rounded-2xl bg-white border-2 border-slate-200 flex items-center justify-center text-slate-800 shadow-sm shrink-0">
+            <i data-lucide="award" class="w-8 h-8 text-amber-500"></i>
+          </div>
+          <div>
+            <h4 class="text-xl font-extrabold text-slate-900">Uji Kemampuanmu di Bank Soal Ruang Matematika</h4>
+            <p class="text-sm text-slate-600 mt-1 font-medium">Tersedia lebih dari 1.500+ latihan soal harian, PTS, PAS, dan simulasi SNBT dengan pembahasan interaktif.</p>
+          </div>
+        </div>
+        <a href="#mulai-latihan" class="whitespace-nowrap inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-transform active:scale-95">
+          <span>Buka Bank Soal</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-stone-200 pt-14 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Row Footer: Brand + Quick Links -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-stone-200/80">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-1 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-sky-100 border border-sky-300 flex items-center justify-center text-sky-700">
+              <i data-lucide="calculator" class="w-5 h-5"></i>
+            </div>
+            <span class="text-lg font-extrabold text-slate-900">
+              Ruang<span class="text-sky-600">Matematika</span>
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed font-medium">
+            Platform edukasi matematika interaktif dengan pendekatan visual ceria, penjelasan konsep yang runtut, dan rumus KaTeX modern untuk siswa Indonesia.
+          </p>
+          <div class="flex items-center gap-2 pt-1 text-slate-400">
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="YouTube">
+              <i data-lucide="youtube" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="GitHub">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Jenjang SMP -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+            Jenjang SMP
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="post-detail.html?id=1" class="hover:text-sky-700 transition-colors font-bold text-sky-800">Kelas 7 SMP (Aljabar &amp; Bilangan)</a></li>
+            <li><a href="post-detail.html?id=2" class="hover:text-sky-700 transition-colors">Kelas 8 SMP (Pythagoras &amp; Fungsi)</a></li>
+            <li><a href="#smp-kelas-9" class="hover:text-sky-700 transition-colors">Kelas 9 SMP (Bangun Ruang &amp; Peluang)</a></li>
+            <li><a href="#bank-soal-smp" class="hover:text-sky-700 transition-colors">Bank Soal &amp; Latihan SMP</a></li>
+          </ul>
+        </div>
+
+        <!-- Jenjang SMA -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            Jenjang SMA
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="post-detail.html?id=3" class="hover:text-amber-700 transition-colors">Kelas 10 SMA (Eksponen &amp; Trigonometri)</a></li>
+            <li><a href="post-detail.html?id=4" class="hover:text-amber-700 transition-colors">Kelas 11 SMA (Turunan &amp; Matriks)</a></li>
+            <li><a href="#sma-kelas-12" class="hover:text-amber-700 transition-colors">Kelas 12 SMA (Dimensi Tiga &amp; Integral)</a></li>
+            <li><a href="#persiapan-utbk" class="hover:text-amber-700 transition-colors">Simulasi UTBK / SNBT</a></li>
+          </ul>
+        </div>
+
+        <!-- Navigasi Pantas -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Navigasi Pantas
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="index.html" class="hover:text-slate-900 transition-colors">Beranda Utama</a></li>
+            <li><a href="#jenjang-utama" class="hover:text-slate-900 transition-colors">Pilihan Jenjang</a></li>
+            <li><a href="#materi-terbaru" class="hover:text-slate-900 transition-colors">Daftar Topik &amp; Video</a></li>
+            <li><a href="#bank-soal" class="hover:text-slate-900 transition-colors">Bank Soal Terintegrasi</a></li>
+            <li><a href="admin.html" class="hover:text-sky-700 font-bold transition-colors">Portal Admin</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: Copyright & Legal -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-medium gap-4">
+        <p>© 2026 Ruang Matematika. Hak Cipta Terpelihara.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-slate-700 transition-colors">Kebijakan Privasi</a>
+          <a href="#" class="hover:text-slate-700 transition-colors">Syarat &amp; Ketentuan</a>
+          <a href="#" class="hover:text-slate-700 transition-colors">Pusat Bantuan</a>
+          <a href="admin.html" class="hover:text-sky-700 font-bold text-sky-800 transition-colors flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span>Portal Admin</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // Inisialisasi Lucide Icons & KaTeX Auto-Render saat DOM siap
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Inisialisasi ikon Lucide
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // 2. Render otomatis KaTeX untuk setiap ekspresi LaTeX
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+
+      // 3. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function () {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // 4. Mobile Accordions (SMP & SMA)
+      const smpToggle = document.getElementById('mobile-smp-toggle');
+      const smpContent = document.getElementById('mobile-smp-content');
+      const smpArrow = document.getElementById('mobile-smp-arrow');
+      if (smpToggle && smpContent && smpArrow) {
+        smpToggle.addEventListener('click', function () {
+          smpContent.classList.toggle('hidden');
+          smpArrow.classList.toggle('rotate-180');
+        });
+      }
+
+      const smaToggle = document.getElementById('mobile-sma-toggle');
+      const smaContent = document.getElementById('mobile-sma-content');
+      const smaArrow = document.getElementById('mobile-sma-arrow');
+      if (smaToggle && smaContent && smaArrow) {
+        smaToggle.addEventListener('click', function () {
+          smaContent.classList.toggle('hidden');
+          smaArrow.classList.toggle('rotate-180');
+        });
+      }
+
+      // 5. Shortcut Keyboard ⌘K / Ctrl+K untuk fokus ke pencarian
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          const searchInput = document.getElementById('header-search-input');
+          if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+          }
+        }
+      });
+    });
+
+    // 6. Fungsi Filter Tab (Semua, SMP, SMA)
+    function filterCards(level, btn) {
+      const cards = document.querySelectorAll('.materi-card');
+      const buttons = document.querySelectorAll('.filter-tab-btn');
+
+      buttons.forEach(b => {
+        b.className = 'filter-tab-btn px-4 py-2 rounded-xl bg-white text-slate-700 hover:bg-stone-50 border border-stone-200 transition-all';
+      });
+      if (btn) {
+        btn.className = 'filter-tab-btn px-4 py-2 rounded-xl bg-slate-900 text-white shadow-sm transition-all';
+      }
+
+      cards.forEach(card => {
+        if (level === 'ALL') {
+          card.style.display = '';
+        } else {
+          const cardLevel = card.getAttribute('data-level');
+          card.style.display = cardLevel === level ? '' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

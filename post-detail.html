@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aritmetika Sosial - Kelas 7 SMP | Ruang Matematika</title>
+
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#FAF6EE',
+            },
+            pastelBlue: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              400: '#38BDF8',
+              800: '#075985',
+            },
+            pastelAmber: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              800: '#92400E',
+            },
+            pastelMint: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              800: '#166534',
+            },
+            pastelRose: {
+              50: '#FFF1F2',
+              100: '#FFE4E6',
+              200: '#FECDD3',
+              800: '#9F1239',
+            },
+            pastelPurple: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              800: '#6B21A8',
+            },
+            slateText: '#1E293B',
+          },
+          boxShadow: {
+            'playful': '0 8px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-hover': '0 4px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-blue': '0 8px 0 0 rgba(186, 230, 253, 0.8)',
+            'playful-amber': '0 8px 0 0 rgba(253, 230, 138, 0.8)',
+            'playful-mint': '0 8px 0 0 rgba(187, 247, 208, 0.8)',
+            'playful-rose': '0 8px 0 0 rgba(254, 205, 211, 0.8)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- KaTeX CDN for Math Formula Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #1E293B;
+    }
+    .katex-display {
+      margin: 0.6em 0 !important;
+    }
+    .dropdown-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .tab-btn.active {
+      background-color: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased text-slate-800 bg-[#FDFBF7]">
+
+  <!-- ================= HEADER / NAVBAR (IDENTIK DENGAN INDEX.HTML) ================= -->
+  <header class="sticky top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-stone-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-4">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-sky-300 rounded-xl p-1">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-200 to-indigo-100 border-2 border-sky-300 flex items-center justify-center text-sky-800 shadow-sm group-hover:scale-105 transition-transform duration-200">
+            <i data-lucide="calculator" class="w-6 h-6 stroke-[2.2]"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-sky-700 transition-colors">
+              Ruang<span class="text-sky-600">Matematika</span>
+            </span>
+            <span class="text-[11px] font-semibold text-slate-500 tracking-wider uppercase -mt-1">Belajar Interaktif</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Items -->
+        <nav class="hidden lg:flex items-center space-x-1 xl:space-x-2 text-sm font-semibold text-slate-700">
+          <!-- Beranda -->
+          <a href="index.html" class="px-3.5 py-2 rounded-xl hover:text-sky-700 hover:bg-sky-50/70 transition-colors">
+            Beranda
+          </a>
+
+          <!-- Dropdown SMP (Aktif) -->
+          <div class="relative dropdown group py-2">
+            <button type="button" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sky-800 bg-sky-100/70 font-bold border border-sky-200 focus:outline-none" aria-haspopup="true">
+              <span>SMP</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-sky-600 transition-transform group-hover:rotate-180 duration-200"></i>
+            </button>
+            <div class="dropdown-menu absolute left-0 top-full w-56 pt-1 z-50">
+              <div class="bg-white rounded-2xl border-2 border-sky-100 shadow-xl shadow-sky-900/5 p-2 space-y-1">
+                <div class="px-3 py-1.5 text-xs font-bold text-sky-800 uppercase tracking-wider bg-sky-50/80 rounded-lg">
+                  Jenjang SMP
+                </div>
+                <a href="post-detail.html" class="flex items-center justify-between px-3 py-2.5 rounded-xl bg-sky-50 text-sky-900 font-bold">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center text-xs font-bold">7</span>
+                    <span>Kelas 7 SMP</span>
+                  </div>
+                  <i data-lucide="check" class="w-4 h-4 text-sky-600"></i>
+                </a>
+                <a href="index.html#smp-kelas-8" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">8</span>
+                    <span>Kelas 8 SMP</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="index.html#smp-kelas-9" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 text-slate-700 hover:text-sky-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold">9</span>
+                    <span>Kelas 9 SMP</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dropdown SMA -->
+          <div class="relative dropdown group py-2">
+            <button type="button" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:text-amber-700 hover:bg-amber-50/70 transition-colors focus:outline-none" aria-haspopup="true">
+              <span>SMA</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-transform group-hover:rotate-180 duration-200"></i>
+            </button>
+            <div class="dropdown-menu absolute left-0 top-full w-56 pt-1 z-50">
+              <div class="bg-white rounded-2xl border-2 border-amber-100 shadow-xl shadow-amber-900/5 p-2 space-y-1">
+                <div class="px-3 py-1.5 text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-50/80 rounded-lg">
+                  Jenjang SMA
+                </div>
+                <a href="index.html#sma-kelas-10" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">10</span>
+                    <span>Kelas 10 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="index.html#sma-kelas-11" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">11</span>
+                    <span>Kelas 11 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+                <a href="index.html#sma-kelas-12" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 hover:text-amber-800 transition-colors">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">12</span>
+                    <span>Kelas 12 SMA</span>
+                  </div>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank Soal -->
+          <a href="index.html#bank-soal" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hover:text-emerald-700 hover:bg-emerald-50/70 transition-colors">
+            <i data-lucide="file-question" class="w-4 h-4 text-emerald-600"></i>
+            <span>Bank Soal</span>
+            <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 rounded-md">Baru</span>
+          </a>
+        </nav>
+
+        <!-- Search Bar and Action Button -->
+        <div class="flex items-center gap-3">
+          <!-- Search Bar -->
+          <div class="relative hidden sm:block w-52 md:w-64">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </div>
+            <input 
+              type="text" 
+              id="header-search-input"
+              placeholder="Cari topik atau rumus..." 
+              class="w-full pl-9 pr-8 py-2 text-sm bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-400 transition-all shadow-sm placeholder-slate-400 font-medium"
+            >
+            <div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+              <kbd class="hidden md:inline-block px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 bg-stone-100 border border-stone-200 rounded">⌘K</kbd>
+            </div>
+          </div>
+
+          <!-- CTA Belajar -->
+          <a href="#latihan-soal" class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-800 bg-amber-100 hover:bg-amber-200 border-2 border-amber-300 rounded-xl transition-transform active:translate-y-0.5 shadow-playful-hover">
+            <span>Uji Kuis</span>
+            <i data-lucide="zap" class="w-4 h-4 text-amber-700"></i>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button 
+            type="button" 
+            id="mobile-menu-btn"
+            class="lg:hidden p-2.5 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-300"
+            aria-label="Buka Menu Navigasi"
+          >
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Search Field -->
+      <div class="sm:hidden pb-3">
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </div>
+          <input 
+            type="text" 
+            placeholder="Cari topik atau rumus KaTeX..." 
+            class="w-full pl-9 pr-3 py-2 text-sm bg-white border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-300 placeholder-slate-400"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-[#FDFBF7] px-4 pt-3 pb-6 space-y-3">
+      <div class="flex flex-col space-y-1 text-sm font-semibold">
+        <a href="index.html" class="px-4 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 font-bold">Beranda</a>
+        
+        <!-- Mobile Accordion SMP -->
+        <div class="border border-sky-200 rounded-xl bg-sky-50/50 overflow-hidden">
+          <button type="button" id="mobile-smp-toggle" class="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-sky-900 hover:bg-sky-100/50">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-sky-600 text-white flex items-center justify-center text-xs">SMP</span>
+              Jenjang SMP (Aktif)
+            </span>
+            <i data-lucide="chevron-down" id="mobile-smp-arrow" class="w-4 h-4 transition-transform duration-200 rotate-180"></i>
+          </button>
+          <div id="mobile-smp-content" class="bg-white px-4 py-2 space-y-1.5 border-t border-sky-100 text-xs font-semibold">
+            <a href="post-detail.html" class="block py-1.5 px-3 rounded-lg bg-sky-100 text-sky-900 font-bold">Kelas 7 SMP (Aritmetika Sosial - Sedang Dibaca)</a>
+            <a href="index.html#smp-kelas-8" class="block py-1.5 px-3 rounded-lg hover:bg-sky-50 text-slate-700">Kelas 8 SMP (Pythagoras, Relasi Fungsi)</a>
+            <a href="index.html#smp-kelas-9" class="block py-1.5 px-3 rounded-lg hover:bg-sky-50 text-slate-700">Kelas 9 SMP (Bangun Ruang, Transformasi)</a>
+          </div>
+        </div>
+
+        <!-- Mobile Accordion SMA -->
+        <div class="border border-stone-200/80 rounded-xl bg-white overflow-hidden">
+          <button type="button" id="mobile-sma-toggle" class="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-800 hover:bg-stone-50">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-amber-100 text-amber-700 flex items-center justify-center text-xs">SMA</span>
+              Jenjang SMA
+            </span>
+            <i data-lucide="chevron-down" id="mobile-sma-arrow" class="w-4 h-4 transition-transform duration-200"></i>
+          </button>
+          <div id="mobile-sma-content" class="hidden bg-amber-50/40 px-4 py-2 space-y-1.5 border-t border-stone-100 text-xs font-semibold">
+            <a href="index.html#sma-kelas-10" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 10 SMA (Eksponen &amp; Trigonometri)</a>
+            <a href="index.html#sma-kelas-11" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 11 SMA (Turunan &amp; Matriks)</a>
+            <a href="index.html#sma-kelas-12" class="block py-1.5 px-3 rounded-lg hover:bg-amber-100/70 text-slate-700">Kelas 12 SMA (Integral &amp; Peluang)</a>
+          </div>
+        </div>
+
+        <a href="index.html#bank-soal" class="flex items-center justify-between px-4 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 font-bold">
+          <span class="flex items-center gap-2">
+            <i data-lucide="file-question" class="w-4 h-4 text-emerald-600"></i>
+            Bank Soal
+          </span>
+          <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded-full">Lengkap</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= BREADCRUMB NAVIGATION ================= -->
+  <section class="bg-stone-100/60 border-b border-stone-200/80 py-3.5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center flex-wrap gap-2 text-xs sm:text-sm font-semibold text-slate-500" aria-label="Breadcrumb">
+        <a href="index.html" class="flex items-center gap-1.5 hover:text-sky-700 transition-colors">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Beranda</span>
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        
+        <a href="index.html#jenjang-utama" id="breadcrumb-level" class="hover:text-sky-700 transition-colors">
+          SMP
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+
+        <a href="index.html#smp-kelas-7" id="breadcrumb-grade" class="hover:text-sky-700 transition-colors">
+          Kelas 7
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+
+        <span id="breadcrumb-title" class="text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-lg font-bold border border-sky-200 flex items-center gap-1">
+          <i data-lucide="book-marked" class="w-3.5 h-3.5 text-sky-600"></i>
+          <span>Aritmetika Sosial</span>
+        </span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ================= MAIN CONTENT WRAPPER ================= -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+
+      <!-- ================= KOLOM KONTEN UTAMA (8 / 12) ================= -->
+      <article class="lg:col-span-8 flex flex-col space-y-8">
+        
+        <!-- HEADER MATERI -->
+        <header class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 sm:p-8 shadow-playful relative overflow-hidden">
+          <!-- Aksen Hiasan Pastel -->
+          <div class="absolute -top-12 -right-12 w-44 h-44 bg-sky-100/60 rounded-full blur-2xl pointer-events-none"></div>
+
+          <!-- Badges & Metadata -->
+          <div class="flex flex-wrap items-center gap-2.5 mb-4 relative z-10">
+            <!-- Badge Pastel Biru Jenjang -->
+            <span id="detail-badge-level-grade" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-sky-100 text-sky-800 text-xs font-extrabold border border-sky-200 shadow-sm">
+              <i data-lucide="backpack" class="w-3.5 h-3.5"></i>
+              <span>SMP - Kelas 7</span>
+            </span>
+
+            <span id="detail-badge-category" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-200">
+              <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+              <span>Aljabar &amp; Finansial</span>
+            </span>
+
+            <span id="detail-badge-date" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-stone-100 text-slate-500 text-xs font-medium border border-stone-200">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span>Diperbarui: 28 Oktober 2026</span>
+            </span>
+          </div>
+
+          <!-- Judul Materi -->
+          <h1 id="detail-title" class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug mb-3.5 relative z-10">
+            Aritmetika Sosial: Konsep Untung, Rugi, Diskon, &amp; Bunga Tunggal
+          </h1>
+
+          <p id="detail-subtitle" class="text-sm sm:text-base text-slate-600 leading-relaxed font-medium mb-6 relative z-10">
+            Pelajari cara menghitung transaksi jual-beli, menentukan persentase laba dan rugi, potongan harga (rabat), perhitungan bunga tabungan perbankan, hingga pemisahan tara, bruto, dan netto dalam kehidupan nyata.
+          </p>
+
+          <!-- Action Toolbars (Bookmark, Print, Bagikan) -->
+          <div class="flex items-center justify-between pt-5 border-t border-stone-200/80 text-xs font-bold relative z-10">
+            <div class="flex items-center gap-2">
+              <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-700 transition-colors">
+                <i data-lucide="bookmark" class="w-4 h-4 text-sky-600"></i>
+                <span>Simpan Topik</span>
+              </button>
+              <button type="button" onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-700 transition-colors">
+                <i data-lucide="printer" class="w-4 h-4 text-slate-500"></i>
+                <span>Cetak Rangkuman</span>
+              </button>
+            </div>
+
+            <div class="flex items-center gap-1.5 text-slate-500">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span>4.2k Siswa Mempelajari</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- TATA LETAK TAB NAVIGASI CEPAT MATERI -->
+        <div class="sticky top-24 z-30 bg-[#FDFBF7]/95 backdrop-blur-md py-2 border-y border-stone-200/80 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs sm:text-sm font-bold">
+            <a href="#rangkuman" class="tab-btn px-4 py-2.5 rounded-2xl bg-sky-600 text-white shadow-sm flex items-center gap-2 shrink-0 transition-all">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+              <span>Rangkuman &amp; Rumus</span>
+            </a>
+            <a href="#video-pembelajaran" class="tab-btn px-4 py-2.5 rounded-2xl bg-white hover:bg-sky-50 text-slate-700 hover:text-sky-800 border border-stone-200/90 flex items-center gap-2 shrink-0 transition-all">
+              <i data-lucide="play-square" class="w-4 h-4 text-rose-500"></i>
+              <span>Video Pembelajaran</span>
+            </a>
+            <a href="#galeri-gambar" class="tab-btn px-4 py-2.5 rounded-2xl bg-white hover:bg-sky-50 text-slate-700 hover:text-sky-800 border border-stone-200/90 flex items-center gap-2 shrink-0 transition-all">
+              <i data-lucide="image" class="w-4 h-4 text-amber-500"></i>
+              <span>Galeri Diagram</span>
+            </a>
+            <a href="#latihan-soal" class="tab-btn px-4 py-2.5 rounded-2xl bg-white hover:bg-sky-50 text-slate-700 hover:text-sky-800 border border-stone-200/90 flex items-center gap-2 shrink-0 transition-all">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
+              <span>Latihan Soal (3)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= SECTION 1: RANGKUMAN & RUMUS KATEX ================= -->
+        <section id="rangkuman" class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 sm:p-8 shadow-playful space-y-7">
+          
+          <div class="flex items-center gap-3 pb-4 border-b border-stone-100">
+            <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">1. Rangkuman Konsep &amp; Rumus Kunci</h2>
+              <p class="text-xs text-slate-500 font-medium">Pelajari definisi matematis dan penurunan rumus KaTeX di bawah ini.</p>
+            </div>
+          </div>
+
+          <!-- Wadah Konten Dinamis LaTeX dari Database API -->
+          <div id="detail-dynamic-latex-box" class="p-6 rounded-3xl bg-white border-2 border-stone-200/90 text-slate-800 text-sm leading-relaxed font-medium shadow-sm space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-800 flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i>
+                Penjelasan Materi &amp; Komponen Visual
+              </span>
+              <span class="text-[10px] font-semibold text-slate-400">Render HTML &amp; KaTeX</span>
+            </div>
+            <div id="detail-dynamic-latex-content" class="text-slate-800 text-sm sm:text-base leading-relaxed space-y-3">
+              <!-- Diisi secara dinamis dari API sebagai HTML murni -->
+            </div>
+          </div>
+
+          <!-- Bagian Statis Aritmetika Sosial (Hanya ditampilkan untuk Topik ID 1) -->
+          <div id="static-aritmetika-content" class="space-y-7">
+          <!-- Subseksi A: Harga Beli & Jual -->
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2.5 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-sky-100 text-sky-800 text-xs flex items-center justify-center font-bold">A</span>
+              Harga Beli ($\text{HB}$) &amp; Harga Jual ($\text{HJ}$)
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium mb-3">
+              Dalam aktivitas perdagangan, nilai barang ditentukan oleh harga beli (modal pengadaan) dan harga jual (nilai saat ditawarkan ke pembeli):
+            </p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700 font-semibold mb-4">
+              <li class="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex items-start gap-2.5">
+                <i data-lucide="arrow-down-circle" class="w-5 h-5 text-sky-600 shrink-0 mt-0.5"></i>
+                <span><strong>Harga Beli ($\text{HB}$):</strong> Uang yang dikeluarkan pedagang untuk membeli atau memproduksi barang dagangan (modal).</span>
+              </li>
+              <li class="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex items-start gap-2.5">
+                <i data-lucide="arrow-up-circle" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
+                <span><strong>Harga Jual ($\text{HJ}$):</strong> Uang yang diterima pedagang dari hasil penjualan barang dagangan kepada konsumen.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Subseksi B: Untung, Rugi & Persentase -->
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2.5 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-800 text-xs flex items-center justify-center font-bold">B</span>
+              Kondisi Untung, Rugi, dan Impas
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium mb-4">
+              Kondisi transaksi bergantung pada perbandingan antara $\text{HJ}$ dan $\text{HB}$:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Kotak Untung -->
+              <div class="p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-200 text-slate-800">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-800">Kondisi Untung ($\text{HJ} > \text{HB}$)</span>
+                  <i data-lucide="trending-up" class="w-4 h-4 text-emerald-600"></i>
+                </div>
+                <div class="font-mono text-sm space-y-2 py-1">
+                  <div>$$\text{Untung } (U) = \text{HJ} - \text{HB}$$</div>
+                  <div>$$\%U = \frac{U}{\text{HB}} \times 100\%$$</div>
+                </div>
+                <p class="text-[11px] text-emerald-900/80 mt-2 font-medium">
+                  Persentase laba dihitung terhadap <strong>Harga Beli</strong> (modal).
+                </p>
+              </div>
+
+              <!-- Kotak Rugi -->
+              <div class="p-5 rounded-2xl bg-rose-50/70 border-2 border-rose-200 text-slate-800">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-rose-800">Kondisi Rugi ($\text{HB} > \text{HJ}$)</span>
+                  <i data-lucide="trending-down" class="w-4 h-4 text-rose-600"></i>
+                </div>
+                <div class="font-mono text-sm space-y-2 py-1">
+                  <div>$$\text{Rugi } (R) = \text{HB} - \text{HJ}$$</div>
+                  <div>$$\%R = \frac{R}{\text{HB}} \times 100\%$$</div>
+                </div>
+                <p class="text-[11px] text-rose-900/80 mt-2 font-medium">
+                  Jika $\text{HJ} = \text{HB}$, maka pedagang mengalami kondisi <strong>Impas</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subseksi C: Diskon & Rabat -->
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2.5 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-800 text-xs flex items-center justify-center font-bold">C</span>
+              Diskon (Rabat) &amp; Harga Bersih
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium mb-3">
+              Diskon adalah potongan harga yang diberikan penjual saat pembeli melakukan transaksi:
+            </p>
+            <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-slate-800 font-mono text-xs sm:text-sm">
+              $$\text{Besar Potongan Diskon} = \% \text{Diskon} \times \text{Harga Awal}$$
+              $$\text{Harga yang Harus Dibayar} = \text{Harga Awal} - \text{Besar Potongan}$$
+            </div>
+          </div>
+
+          <!-- Subseksi D: Bunga Tunggal Perbankan -->
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2.5 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-sky-100 text-sky-800 text-xs flex items-center justify-center font-bold">D</span>
+              Bunga Tunggal Tabungan
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed font-medium mb-3">
+              Jika seseorang menabung modal sebesar $M$ di bank dengan suku bunga $p\%$ per tahun selama $t$ bulan:
+            </p>
+            <div class="p-4 rounded-2xl bg-sky-50/80 border border-sky-200 text-slate-800 font-mono text-xs sm:text-sm">
+              $$B = M \times \frac{p}{100} \times \frac{t}{12}$$
+              $$\text{Total Tabungan Akhir} = M + B$$
+            </div>
+          </div>
+
+          <!-- Subseksi E: Bruto, Netto, dan Tara -->
+          <div class="pt-4 border-t border-stone-100">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2.5 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-purple-100 text-purple-800 text-xs flex items-center justify-center font-bold">E</span>
+              Bruto, Netto, dan Tara
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-semibold text-slate-700 mb-3">
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200 text-center">
+                <span class="block text-slate-500 font-bold mb-1">Bruto (Berat Kotor)</span>
+                <span class="font-mono text-sm text-slate-900">Isi + Pembungkus</span>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200 text-center">
+                <span class="block text-slate-500 font-bold mb-1">Netto (Berat Bersih)</span>
+                <span class="font-mono text-sm text-slate-900">Murni Isi Saja</span>
+              </div>
+              <div class="p-3 rounded-xl bg-stone-50 border border-stone-200 text-center">
+                <span class="block text-slate-500 font-bold mb-1">Tara (Potongan Berat)</span>
+                <span class="font-mono text-sm text-slate-900">Wadah / Kemasan</span>
+              </div>
+            </div>
+            <div class="p-4 rounded-2xl bg-purple-50/80 border border-purple-200 text-slate-800 font-mono text-xs sm:text-sm">
+              $$\text{Netto} = \text{Bruto} - \text{Tara}, \quad \% \text{Tara} = \frac{\text{Tara}}{\text{Bruto}} \times 100\%$$
+            </div>
+          </div>
+          </div> <!-- Akhir static-aritmetika-content -->
+
+        </section>
+
+        <!-- ================= SECTION 2: VIDEO PEMBELAJARAN ================= -->
+        <section id="video-pembelajaran" class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 sm:p-8 shadow-playful space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-stone-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
+                <i data-lucide="video" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">2. Video Pembelajaran Interaktif</h2>
+                <p class="text-xs text-slate-500 font-medium">Tonton visualisasi animasi contoh kasus nyata aritmetika sosial.</p>
+              </div>
+            </div>
+            <span class="hidden sm:inline-flex px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold">
+              HD 1080p
+            </span>
+          </div>
+
+          <!-- Video YouTube Container Responsive 16:9 dengan Bingkai Pastel -->
+          <div class="rounded-3xl border-4 border-sky-100 bg-sky-50 p-2 sm:p-3 shadow-playful-blue">
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-900 shadow-inner">
+              <iframe 
+                id="detail-video-iframe"
+                class="w-full h-full object-cover" 
+                src="https://www.youtube-nocookie.com/embed/S2qTqZ1e6_w?si=matematika-smp-7" 
+                title="Video Pembelajaran Matematika" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Timestamp Timeline Card -->
+          <div class="bg-stone-50 rounded-2xl p-4 border border-stone-200/90 text-xs">
+            <div class="flex items-center justify-between mb-3 font-bold text-slate-700">
+              <span class="flex items-center gap-1.5">
+                <i data-lucide="list-video" class="w-4 h-4 text-sky-600"></i>
+                Timestamp Bab Video
+              </span>
+              <span class="text-slate-400">Durasi: 14:20 Menit</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-600 font-medium">
+              <div class="p-2 bg-white rounded-xl border border-stone-200 flex items-center justify-between">
+                <span>00:00 - Pengenalan Modal &amp; Jual Beli</span>
+                <span class="font-bold text-sky-600">Bab 1</span>
+              </div>
+              <div class="p-2 bg-white rounded-xl border border-stone-200 flex items-center justify-between">
+                <span>03:15 - Menghitung Persentase Laba/Rugi</span>
+                <span class="font-bold text-sky-600">Bab 2</span>
+              </div>
+              <div class="p-2 bg-white rounded-xl border border-stone-200 flex items-center justify-between">
+                <span>07:40 - Trik Cepat Menghitung Diskon Toko</span>
+                <span class="font-bold text-sky-600">Bab 3</span>
+              </div>
+              <div class="p-2 bg-white rounded-xl border border-stone-200 flex items-center justify-between">
+                <span>10:55 - Soal Cerita Bunga Tabungan Bank</span>
+                <span class="font-bold text-sky-600">Bab 4</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 3: GALERI GAMBAR & DIAGRAM ================= -->
+        <section id="galeri-gambar" class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 sm:p-8 shadow-playful space-y-6">
+          <div class="flex items-center gap-3 pb-4 border-b border-stone-100">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">
+              <i data-lucide="images" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">3. Galeri Ilustrasi &amp; Diagram Konseptual</h2>
+              <p class="text-xs text-slate-500 font-medium">Visualisasi diagram alur untuk memperkuat daya ingat konsep materi.</p>
+            </div>
+          </div>
+
+          <!-- Preview Gambar Terunggah dari Database -->
+          <div id="detail-uploaded-image-card" class="hidden p-4 rounded-2xl bg-stone-50 border-2 border-stone-200 flex flex-col items-center">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 self-start">Gambar Penjelasan Tambahan:</span>
+            <img id="detail-uploaded-image" src="" alt="Ilustrasi Materi" class="max-h-80 w-auto rounded-xl border border-stone-200 shadow-sm object-contain">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Diagram 1: Hubungan Bruto, Netto, Tara -->
+            <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-100 flex flex-col justify-between">
+              <div>
+                <span class="px-2.5 py-1 rounded-lg bg-sky-200/80 text-sky-800 text-[10px] font-extrabold uppercase tracking-wider mb-3 inline-block">
+                  Diagram 1: Kemasan Barang
+                </span>
+                <h4 class="font-bold text-slate-900 text-sm mb-2">Visualisasi Karung Beras: Bruto, Netto, &amp; Tara</h4>
+                <p class="text-xs text-slate-600 mb-4 font-medium">Membedakan bobot isi murni dengan bobot kemasan pembungkus:</p>
+                
+                <!-- SVG Diagram Mini Playful -->
+                <div class="bg-white rounded-xl p-4 border border-sky-100 flex items-center justify-around text-center mb-3">
+                  <div class="flex flex-col items-center">
+                    <div class="w-12 h-14 rounded-lg bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-amber-800 font-bold text-xs shadow-sm">
+                      Isi
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1">Netto</span>
+                    <span class="text-[10px] text-slate-400">Beras Murni</span>
+                  </div>
+                  <span class="text-lg font-bold text-slate-400">+</span>
+                  <div class="flex flex-col items-center">
+                    <div class="w-12 h-14 rounded-lg bg-stone-100 border-2 border-dashed border-stone-300 flex items-center justify-center text-slate-600 font-bold text-xs">
+                      Karung
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1">Tara</span>
+                    <span class="text-[10px] text-slate-400">Pembungkus</span>
+                  </div>
+                  <span class="text-lg font-bold text-slate-400">=</span>
+                  <div class="flex flex-col items-center">
+                    <div class="w-12 h-14 rounded-lg bg-sky-100 border-2 border-sky-300 flex items-center justify-center text-sky-800 font-bold text-xs shadow-sm">
+                      Total
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 mt-1">Bruto</span>
+                    <span class="text-[10px] text-slate-400">Berat Kotor</span>
+                  </div>
+                </div>
+              </div>
+              <span class="text-[11px] text-sky-800 font-mono font-semibold block text-center">
+                $$\text{Netto} = \text{Bruto} - \text{Tara}$$
+              </span>
+            </div>
+
+            <!-- Diagram 2: Alur Siklus Perdagangan Finansial -->
+            <div class="p-5 rounded-2xl bg-emerald-50/60 border-2 border-emerald-100 flex flex-col justify-between">
+              <div>
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-200/80 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-3 inline-block">
+                  Diagram 2: Alur Keuntungan
+                </span>
+                <h4 class="font-bold text-slate-900 text-sm mb-2">Penetapan Harga Jual Berdasarkan Margin Target</h4>
+                <p class="text-xs text-slate-600 mb-4 font-medium">Hubungan modal awal, biaya operasional, dan margin laba:</p>
+                
+                <!-- Visual Bar Breakdown -->
+                <div class="bg-white rounded-xl p-4 border border-emerald-100 mb-3 space-y-2">
+                  <div class="w-full bg-slate-100 rounded-lg h-8 flex overflow-hidden font-bold text-[10px] text-white">
+                    <div class="bg-sky-500 flex items-center justify-center" style="width: 70%;">
+                      Modal Pokok (70%)
+                    </div>
+                    <div class="bg-emerald-500 flex items-center justify-center" style="width: 30%;">
+                      Untung (30%)
+                    </div>
+                  </div>
+                  <div class="flex justify-between text-[11px] font-semibold text-slate-600">
+                    <span>$\text{HB} = \text{Rp } 70.000$</span>
+                    <span class="text-emerald-700 font-bold">$\text{HJ} = \text{Rp } 100.000$</span>
+                  </div>
+                </div>
+              </div>
+              <span class="text-[11px] text-emerald-800 font-mono font-semibold block text-center">
+                $$\%U = \frac{30.000}{70.000} \times 100\% \approx 42{,}86\%$$
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 4: LATIHAN SOAL INTERAKTIF ================= -->
+        <section id="latihan-soal" class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 sm:p-8 shadow-playful space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-stone-100">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+                <i data-lucide="check-square" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">4. Latihan Soal Interaktif</h2>
+                <p class="text-xs text-slate-500 font-medium">Uji pemahamanmu sekarang dan buka kunci jawaban serta pembahasan lengkap.</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+              3 Butir Soal
+            </span>
+          </div>
+
+          <div class="space-y-6">
+            
+            <!-- SOAL 1 -->
+            <div class="p-5 sm:p-6 rounded-2xl bg-stone-50 border-2 border-stone-200/90 transition-all quiz-card" data-correct="B">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-xl bg-sky-100 text-sky-800 text-xs font-bold">
+                  Soal Nomor 1
+                </span>
+                <span class="text-xs font-semibold text-slate-400">Topik: Untung &amp; Persentase</span>
+              </div>
+              <p class="text-sm sm:text-base font-semibold text-slate-800 mb-4 leading-relaxed">
+                Pak Ahmad membeli $1$ lusin buku tulis seharga $\text{Rp } 36.000$. Buku tersebut kemudian dijual kembali secara eceran dengan harga $\text{Rp } 3.600$ per buah. Berapakah persentase keuntungan yang diperoleh Pak Ahmad?
+              </p>
+
+              <!-- Pilihan Jawaban -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+                <button type="button" onclick="checkQuiz(this, 'A', 'B', 'exp-1')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-sky-300 hover:bg-sky-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">A</span>
+                  <span>$10\%$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'B', 'B', 'exp-1')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-sky-300 hover:bg-sky-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">B</span>
+                  <span>$20\%$ (Benar)</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'C', 'B', 'exp-1')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-sky-300 hover:bg-sky-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">C</span>
+                  <span>$25\%$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'D', 'B', 'exp-1')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-sky-300 hover:bg-sky-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">D</span>
+                  <span>$30\%$</span>
+                </button>
+              </div>
+
+              <!-- Tombol Pemicu Pembahasan -->
+              <div class="flex items-center justify-between pt-2">
+                <button type="button" onclick="toggleExplanation('exp-1')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-bold transition-all">
+                  <i data-lucide="help-circle" class="w-4 h-4 text-sky-700"></i>
+                  <span>Lihat Kunci &amp; Pembahasan</span>
+                </button>
+                <span id="badge-feedback-exp-1" class="hidden text-xs font-bold"></span>
+              </div>
+
+              <!-- Box Pembahasan (Tersembunyi Awalnya) -->
+              <div id="exp-1" class="hidden mt-4 p-4 rounded-xl bg-sky-50 border border-sky-200 text-xs sm:text-sm text-slate-700 space-y-2">
+                <div class="font-bold text-sky-900 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Kunci Jawaban: B ($20\%$)</span>
+                </div>
+                <p><strong>Langkah 1:</strong> Hitung harga beli per buah buku:</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-sky-100">
+                  $$\text{HB per buah} = \frac{\text{Rp } 36.000}{12} = \text{Rp } 3.000$$
+                </div>
+                <p><strong>Langkah 2:</strong> Tentukan besar keuntungan per buah:</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-sky-100">
+                  $$\text{Untung } (U) = \text{HJ} - \text{HB} = 3.600 - 3.000 = \text{Rp } 600$$
+                </div>
+                <p><strong>Langkah 3:</strong> Hitung persentase laba terhadap modal ($\text{HB}$):</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-sky-100">
+                  $$\%U = \frac{U}{\text{HB}} \times 100\% = \frac{600}{3.000} \times 100\% = 20\%$$
+                </div>
+              </div>
+            </div>
+
+            <!-- SOAL 2 -->
+            <div class="p-5 sm:p-6 rounded-2xl bg-stone-50 border-2 border-stone-200/90 transition-all quiz-card" data-correct="C">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold">
+                  Soal Nomor 2
+                </span>
+                <span class="text-xs font-semibold text-slate-400">Topik: Diskon Belanja</span>
+              </div>
+              <p class="text-sm sm:text-base font-semibold text-slate-800 mb-4 leading-relaxed">
+                Sebuah jaket di toko bertuliskan label harga $\text{Rp } 250.000$ dengan potongan diskon sebesar $20\%$. Berapakah total uang yang harus dibayarkan pembeli di kasir?
+              </p>
+
+              <!-- Pilihan Jawaban -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+                <button type="button" onclick="checkQuiz(this, 'A', 'C', 'exp-2')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-amber-300 hover:bg-amber-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">A</span>
+                  <span>$\text{Rp } 180.000$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'B', 'C', 'exp-2')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-amber-300 hover:bg-amber-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">B</span>
+                  <span>$\text{Rp } 190.000$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'C', 'C', 'exp-2')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-amber-300 hover:bg-amber-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">C</span>
+                  <span>$\text{Rp } 200.000$ (Benar)</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'D', 'C', 'exp-2')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-amber-300 hover:bg-amber-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">D</span>
+                  <span>$\text{Rp } 210.000$</span>
+                </button>
+              </div>
+
+              <!-- Tombol Pemicu Pembahasan -->
+              <div class="flex items-center justify-between pt-2">
+                <button type="button" onclick="toggleExplanation('exp-2')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition-all">
+                  <i data-lucide="help-circle" class="w-4 h-4 text-amber-700"></i>
+                  <span>Lihat Kunci &amp; Pembahasan</span>
+                </button>
+                <span id="badge-feedback-exp-2" class="hidden text-xs font-bold"></span>
+              </div>
+
+              <!-- Box Pembahasan -->
+              <div id="exp-2" class="hidden mt-4 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-slate-700 space-y-2">
+                <div class="font-bold text-amber-900 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Kunci Jawaban: C ($\text{Rp } 200.000$)</span>
+                </div>
+                <p><strong>Cara Cepat:</strong> Pembeli hanya membayar persentase bersih $(100\% - 20\% = 80\%)$:</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-amber-100">
+                  $$\text{Potongan} = 20\% \times \text{Rp } 250.000 = \text{Rp } 50.000$$
+                  $$\text{Harga Bayar} = \text{Rp } 250.000 - \text{Rp } 50.000 = \text{Rp } 200.000$$
+                </div>
+              </div>
+            </div>
+
+            <!-- SOAL 3 -->
+            <div class="p-5 sm:p-6 rounded-2xl bg-stone-50 border-2 border-stone-200/90 transition-all quiz-card" data-correct="B">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-xl bg-purple-100 text-purple-800 text-xs font-bold">
+                  Soal Nomor 3
+                </span>
+                <span class="text-xs font-semibold text-slate-400">Topik: Bruto &amp; Tara</span>
+              </div>
+              <p class="text-sm sm:text-base font-semibold text-slate-800 mb-4 leading-relaxed">
+                Satu karung beras memiliki bruto sebesar $50\text{ kg}$ dengan tara $1{,}5\%$. Berapakah berat netto beras tersebut?
+              </p>
+
+              <!-- Pilihan Jawaban -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+                <button type="button" onclick="checkQuiz(this, 'A', 'B', 'exp-3')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-purple-300 hover:bg-purple-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">A</span>
+                  <span>$48{,}50\text{ kg}$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'B', 'B', 'exp-3')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-purple-300 hover:bg-purple-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">B</span>
+                  <span>$49{,}25\text{ kg}$ (Benar)</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'C', 'B', 'exp-3')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-purple-300 hover:bg-purple-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">C</span>
+                  <span>$49{,}50\text{ kg}$</span>
+                </button>
+                <button type="button" onclick="checkQuiz(this, 'D', 'B', 'exp-3')" class="quiz-option text-left p-3 rounded-xl bg-white border border-stone-200 text-xs sm:text-sm font-semibold hover:border-purple-300 hover:bg-purple-50/50 transition-all flex items-center gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-stone-100 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0">D</span>
+                  <span>$49{,}75\text{ kg}$</span>
+                </button>
+              </div>
+
+              <!-- Tombol Pemicu Pembahasan -->
+              <div class="flex items-center justify-between pt-2">
+                <button type="button" onclick="toggleExplanation('exp-3')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-bold transition-all">
+                  <i data-lucide="help-circle" class="w-4 h-4 text-purple-700"></i>
+                  <span>Lihat Kunci &amp; Pembahasan</span>
+                </button>
+                <span id="badge-feedback-exp-3" class="hidden text-xs font-bold"></span>
+              </div>
+
+              <!-- Box Pembahasan -->
+              <div id="exp-3" class="hidden mt-4 p-4 rounded-xl bg-purple-50 border border-purple-200 text-xs sm:text-sm text-slate-700 space-y-2">
+                <div class="font-bold text-purple-900 flex items-center gap-1.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Kunci Jawaban: B ($49{,}25\text{ kg}$)</span>
+                </div>
+                <p><strong>Langkah 1:</strong> Hitung berat tara (karung pembungkus):</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-purple-100">
+                  $$\text{Tara} = \frac{1{,}5}{100} \times 50\text{ kg} = 0{,}75\text{ kg}$$
+                </div>
+                <p><strong>Langkah 2:</strong> Kurangkan tara dari bruto untuk mendapat netto:</p>
+                <div class="font-mono bg-white p-2.5 rounded-lg border border-purple-100">
+                  $$\text{Netto} = \text{Bruto} - \text{Tara} = 50\text{ kg} - 0{,}75\text{ kg} = 49{,}25\text{ kg}$$
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </article>
+
+      <!-- ================= SIDEBAR / NAVIGASI SAMPING (4 / 12) ================= -->
+      <aside class="lg:col-span-4 space-y-6">
+        
+        <!-- KOTAK 1: MATERI TERKAIT KELAS 7 SMP -->
+        <div class="bg-white rounded-3xl border-2 border-stone-200/80 p-6 shadow-playful sticky top-24">
+          <div class="flex items-center justify-between pb-4 border-b border-stone-100 mb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-xs">
+                7
+              </span>
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-sm">Silabus Kelas 7 SMP</h3>
+                <span class="text-[11px] font-semibold text-slate-400">Semester 1 &amp; 2</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded-md bg-stone-100 text-[10px] font-bold text-slate-500">8 Topik</span>
+          </div>
+
+          <!-- List Materi Terkait -->
+          <ul class="space-y-2 text-xs font-semibold">
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+                  <span>1. Bilangan Bulat &amp; Pecahan</span>
+                </span>
+                <span class="text-[10px] text-slate-400">Selesai</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+                  <span>2. Operasi Bentuk Aljabar</span>
+                </span>
+                <span class="text-[10px] text-slate-400">Selesai</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0"></i>
+                  <span>3. Persamaan Linear (PLSV)</span>
+                </span>
+                <span class="text-[10px] text-slate-400">Selesai</span>
+              </a>
+            </li>
+
+            <!-- Materi Aktif Saat Ini -->
+            <li>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-sky-100 text-sky-900 border border-sky-300 font-bold shadow-sm">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="play" class="w-4 h-4 text-sky-600 fill-sky-600 shrink-0"></i>
+                  <span>4. Aritmetika Sosial</span>
+                </span>
+                <span class="px-1.5 py-0.5 rounded-md bg-sky-600 text-[10px] text-white font-bold">Sedang Dibaca</span>
+              </div>
+            </li>
+
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="circle" class="w-4 h-4 text-stone-300 shrink-0"></i>
+                  <span>5. Perbandingan &amp; Skala</span>
+                </span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="circle" class="w-4 h-4 text-stone-300 shrink-0"></i>
+                  <span>6. Garis dan Hubungan Sudut</span>
+                </span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="circle" class="w-4 h-4 text-stone-300 shrink-0"></i>
+                  <span>7. Bangun Datar Segi Empat</span>
+                </span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center justify-between p-2.5 rounded-xl text-slate-600 hover:bg-stone-50 transition-colors">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="circle" class="w-4 h-4 text-stone-300 shrink-0"></i>
+                  <span>8. Statistika &amp; Penyajian Data</span>
+                </span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Widget Progress Belajar -->
+          <div class="mt-6 pt-5 border-t border-stone-100">
+            <div class="flex items-center justify-between text-xs font-bold mb-2 text-slate-700">
+              <span>Progres Kelas 7</span>
+              <span class="text-sky-700">50% Selesai</span>
+            </div>
+            <div class="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-gradient-to-r from-sky-400 to-sky-600 h-2.5 rounded-full" style="width: 50%"></div>
+            </div>
+          </div>
+
+          <!-- Banner Mini Bank Soal -->
+          <div class="mt-5 p-4 rounded-2xl bg-amber-50 border border-amber-200">
+            <div class="flex items-center gap-2 mb-1">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+              <h5 class="text-xs font-bold text-amber-900">Siap Hadapi Ujian?</h5>
+            </div>
+            <p class="text-[11px] text-amber-800 font-medium mb-3">Akses 120+ paket soal latihan Aritmetika Sosial lengkap dengan skor instan.</p>
+            <a href="index.html#bank-soal" class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold text-xs shadow-sm transition-all">
+              <span>Coba Bank Soal</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER (IDENTIK DENGAN INDEX.HTML) ================= -->
+  <footer class="bg-white border-t border-stone-200 pt-14 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Row Footer: Brand + Quick Links -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-stone-200/80">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-1 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-sky-100 border border-sky-300 flex items-center justify-center text-sky-700">
+              <i data-lucide="calculator" class="w-5 h-5"></i>
+            </div>
+            <span class="text-lg font-extrabold text-slate-900">
+              Ruang<span class="text-sky-600">Matematika</span>
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed font-medium">
+            Platform edukasi matematika interaktif dengan pendekatan visual ceria, penjelasan konsep yang runtut, dan rumus KaTeX modern untuk siswa Indonesia.
+          </p>
+          <div class="flex items-center gap-2 pt-1 text-slate-400">
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="YouTube">
+              <i data-lucide="youtube" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center hover:bg-sky-100 hover:text-sky-700 transition-colors" aria-label="GitHub">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Jenjang SMP -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+            Jenjang SMP
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="post-detail.html" class="hover:text-sky-700 transition-colors font-bold text-sky-800">Kelas 7 SMP (Aljabar &amp; Bilangan)</a></li>
+            <li><a href="index.html#smp-kelas-8" class="hover:text-sky-700 transition-colors">Kelas 8 SMP (Pythagoras &amp; Fungsi)</a></li>
+            <li><a href="index.html#smp-kelas-9" class="hover:text-sky-700 transition-colors">Kelas 9 SMP (Bangun Ruang &amp; Peluang)</a></li>
+            <li><a href="index.html#bank-soal" class="hover:text-sky-700 transition-colors">Bank Soal &amp; Latihan SMP</a></li>
+          </ul>
+        </div>
+
+        <!-- Jenjang SMA -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            Jenjang SMA
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="index.html#sma-kelas-10" class="hover:text-amber-700 transition-colors">Kelas 10 SMA (Eksponen &amp; Trigonometri)</a></li>
+            <li><a href="index.html#sma-kelas-11" class="hover:text-amber-700 transition-colors">Kelas 11 SMA (Turunan &amp; Matriks)</a></li>
+            <li><a href="index.html#sma-kelas-12" class="hover:text-amber-700 transition-colors">Kelas 12 SMA (Dimensi Tiga &amp; Integral)</a></li>
+            <li><a href="index.html#persiapan-utbk" class="hover:text-amber-700 transition-colors">Simulasi UTBK / SNBT</a></li>
+          </ul>
+        </div>
+
+        <!-- Navigasi Pantas -->
+        <div>
+          <h5 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            Navigasi Pantas
+          </h5>
+          <ul class="space-y-2.5 text-xs font-semibold text-slate-600">
+            <li><a href="index.html" class="hover:text-slate-900 transition-colors">Beranda Utama</a></li>
+            <li><a href="index.html#jenjang-utama" class="hover:text-slate-900 transition-colors">Pilihan Jenjang</a></li>
+            <li><a href="index.html#materi-terbaru" class="hover:text-slate-900 transition-colors">Daftar Topik &amp; Video</a></li>
+            <li><a href="index.html#bank-soal" class="hover:text-slate-900 transition-colors">Bank Soal Terintegrasi</a></li>
+            <li><a href="#rangkuman" class="hover:text-slate-900 transition-colors">Katalog Rumus KaTeX</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: Copyright & Legal -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-medium gap-4">
+        <p>© 2026 Ruang Matematika. Hak Cipta Terpelihara.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-slate-700 transition-colors">Kebijakan Privasi</a>
+          <a href="#" class="hover:text-slate-700 transition-colors">Syarat &amp; Ketentuan</a>
+          <a href="#" class="hover:text-slate-700 transition-colors">Pusat Bantuan</a>
+          <a href="admin.html" class="hover:text-sky-700 font-bold text-sky-800 transition-colors flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span>Portal Admin</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Inisialisasi ikon Lucide
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // 2. Render otomatis KaTeX
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+
+      // 3. Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function () {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // 4. Mobile Accordions
+      const smpToggle = document.getElementById('mobile-smp-toggle');
+      const smpContent = document.getElementById('mobile-smp-content');
+      const smpArrow = document.getElementById('mobile-smp-arrow');
+      if (smpToggle && smpContent && smpArrow) {
+        smpToggle.addEventListener('click', function () {
+          smpContent.classList.toggle('hidden');
+          smpArrow.classList.toggle('rotate-180');
+        });
+      }
+
+      const smaToggle = document.getElementById('mobile-sma-toggle');
+      const smaContent = document.getElementById('mobile-sma-content');
+      const smaArrow = document.getElementById('mobile-sma-arrow');
+      if (smaToggle && smaContent && smaArrow) {
+        smaToggle.addEventListener('click', function () {
+          smaContent.classList.toggle('hidden');
+          smaArrow.classList.toggle('rotate-180');
+        });
+      }
+
+      // 5. Shortcut Keyboard ⌘K / Ctrl+K
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          const searchInput = document.getElementById('header-search-input');
+          if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+          }
+        }
+      });
+
+      // 6. Muat Data Materi Berdasarkan Parameter URL (?id=...)
+      loadPostDetail();
+    });
+
+    // Mengambil detail materi dari Backend API (GET /api/posts/:id)
+    // Helper base URL API (adaptif jika dibuka via port 8000, 5000, atau domain publik/tunnel)
+    const apiBase = window.location.port === '8000' ? 'http://localhost:5000' : window.location.origin;
+
+    async function loadPostDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const postId = urlParams.get('id') || '1';
+
+      try {
+        const response = await fetch(`${apiBase}/api/posts/${postId}`);
+        if (!response.ok) throw new Error('Status: ' + response.status);
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          applyPostData(result.data);
+        }
+      } catch (err) {
+        console.warn('[Detail] Tidak dapat memuat data dinamis dari backend, mempertahankan data default:', err.message);
+      }
+    }
+
+    // Terapkan data materi ke elemen-elemen tampilan
+    function applyPostData(post) {
+      // 1. Title Halaman & Breadcrumb
+      document.title = `${post.title} - Kelas ${post.grade} ${post.level} | Ruang Matematika`;
+
+      const bLevel = document.getElementById('breadcrumb-level');
+      const bGrade = document.getElementById('breadcrumb-grade');
+      const bTitle = document.getElementById('breadcrumb-title');
+      if (bLevel) bLevel.textContent = post.level;
+      if (bGrade) bGrade.textContent = `Kelas ${post.grade}`;
+      if (bTitle) {
+        bTitle.innerHTML = `<i data-lucide="book-marked" class="w-3.5 h-3.5 text-sky-600"></i><span>${post.title}</span>`;
+      }
+
+      // 2. Header Badges & Judul
+      const badgeLevelGrade = document.getElementById('detail-badge-level-grade');
+      const badgeCategory = document.getElementById('detail-badge-category');
+      const badgeDate = document.getElementById('detail-badge-date');
+      const mainTitle = document.getElementById('detail-title');
+      const subTitle = document.getElementById('detail-subtitle');
+
+      const isSmp = post.level === 'SMP';
+      if (badgeLevelGrade) {
+        const iconName = isSmp ? 'backpack' : 'graduation-cap';
+        const colorClass = isSmp 
+          ? 'inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-sky-100 text-sky-800 text-xs font-extrabold border border-sky-200 shadow-sm'
+          : 'inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-100 text-amber-800 text-xs font-extrabold border border-amber-200 shadow-sm';
+        badgeLevelGrade.className = colorClass;
+        badgeLevelGrade.innerHTML = `<i data-lucide="${iconName}" class="w-3.5 h-3.5"></i><span>${post.level} - Kelas ${post.grade}</span>`;
+      }
+
+      if (badgeCategory) {
+        badgeCategory.innerHTML = `<i data-lucide="tag" class="w-3.5 h-3.5"></i><span>${post.category}</span>`;
+      }
+
+      if (badgeDate && post.created_at) {
+        badgeDate.innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i><span>Diperbarui: ${post.created_at.substring(0, 10)}</span>`;
+      }
+
+      if (mainTitle) mainTitle.textContent = post.title;
+      if (subTitle) {
+        if (post.subtitle) {
+          subTitle.textContent = post.subtitle + (post.summary ? ' — ' + post.summary : '');
+        } else if (post.summary) {
+          subTitle.textContent = post.summary;
+        } else if (post.content_latex) {
+          subTitle.textContent = post.content_latex.replace(/(\$\$|\$|<[^>]*>)/g, '').substring(0, 160) + '...';
+        }
+      }
+
+      // 3. Tampilkan Konten LaTeX Dinamis (Render HTML & KaTeX)
+      const latexContentEl = document.getElementById('detail-dynamic-latex-content');
+      if (latexContentEl && post.content_latex) {
+        // Menampilkan teks sebagai elemen HTML utuh agar komponen kotak visual pastel ter-render
+        latexContentEl.innerHTML = post.content_latex;
+      }
+
+      // Sembunyikan contoh subseksi statis jika membuka materi lain
+      const staticContent = document.getElementById('static-aritmetika-content');
+      if (staticContent) {
+        if (parseInt(post.id, 10) === 1 || (post.title && post.title.toLowerCase().includes('aritmetika'))) {
+          staticContent.style.display = 'block';
+        } else {
+          staticContent.style.display = 'none';
+        }
+      }
+
+      // 4. Perbarui Video YouTube jika tersedia
+      const videoIframe = document.getElementById('detail-video-iframe');
+      if (videoIframe && post.video_url) {
+        const embedUrl = convertToYouTubeEmbed(post.video_url);
+        videoIframe.src = embedUrl;
+      }
+
+      // 5. Tampilkan Gambar Ilustrasi jika ada
+      const imgCard = document.getElementById('detail-uploaded-image-card');
+      const imgEl = document.getElementById('detail-uploaded-image');
+      if (imgCard && imgEl && post.image_url) {
+        const fullImgUrl = post.image_url.startsWith('http') 
+          ? post.image_url 
+          : `${apiBase}${post.image_url}`;
+        imgEl.src = fullImgUrl;
+        imgCard.classList.remove('hidden');
+      }
+
+      // Re-render KaTeX dan Lucide Icons
+      if (window.lucide) lucide.createIcons();
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Helper konversi URL YouTube ke Embed Iframe URL
+    function convertToYouTubeEmbed(url) {
+      if (!url) return '';
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return 'https://www.youtube-nocookie.com/embed/' + match[2];
+      }
+      return url;
+    }
+
+    // 6. Fungsi Toggle Pembahasan Soal
+    function toggleExplanation(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.toggle('hidden');
+      }
+    }
+
+    // 7. Fungsi Interaktif Cek Jawaban Kuis
+    function checkQuiz(btn, selectedOption, correctOption, explanationId) {
+      const parentCard = btn.closest('.quiz-card');
+      if (!parentCard) return;
+
+      const options = parentCard.querySelectorAll('.quiz-option');
+      const feedbackBadge = document.getElementById('badge-feedback-' + explanationId);
+
+      options.forEach(opt => {
+        opt.classList.remove('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'bg-rose-100', 'border-rose-500', 'text-rose-900');
+      });
+
+      if (selectedOption === correctOption) {
+        btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+        if (feedbackBadge) {
+          feedbackBadge.textContent = '🎉 Jawaban Tepat!';
+          feedbackBadge.className = 'text-xs font-bold text-emerald-600 inline-block';
+        }
+      } else {
+        btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900');
+        if (feedbackBadge) {
+          feedbackBadge.textContent = '❌ Kurang Tepat, Coba Lagi!';
+          feedbackBadge.className = 'text-xs font-bold text-rose-600 inline-block';
+        }
+      }
+
+      // Buka pembahasan secara otomatis
+      const exp = document.getElementById(explanationId);
+      if (exp && exp.classList.contains('hidden')) {
+        exp.classList.remove('hidden');
+      }
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Ruang Matematika</title>
+
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#FAF6EE',
+            },
+            pastelBlue: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              400: '#38BDF8',
+              800: '#075985',
+            },
+            pastelAmber: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              800: '#92400E',
+            },
+            pastelMint: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              800: '#166534',
+            },
+            pastelRose: {
+              50: '#FFF1F2',
+              100: '#FFE4E6',
+              200: '#FECDD3',
+              800: '#9F1239',
+            },
+            pastelPurple: {
+              50: '#FAF5FF',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              800: '#6B21A8',
+            },
+            slateText: '#1E293B',
+          },
+          boxShadow: {
+            'playful': '0 8px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-hover': '0 4px 0 0 rgba(226, 232, 240, 0.8)',
+            'playful-blue': '0 8px 0 0 rgba(186, 230, 253, 0.8)',
+            'playful-amber': '0 8px 0 0 rgba(253, 230, 138, 0.8)',
+            'playful-mint': '0 8px 0 0 rgba(187, 247, 208, 0.8)',
+            'playful-rose': '0 8px 0 0 rgba(254, 205, 211, 0.8)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- KaTeX CDN for Real-time Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #1E293B;
+    }
+    .katex-display {
+      margin: 0.5em 0 !important;
+    }
+    /* Toast transition */
+    #toast {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row font-sans antialiased text-slate-800 bg-[#FDFBF7]">
+
+  <!-- ================= SIDEBAR ADMIN ================= -->
+  <aside class="w-full md:w-64 lg:w-72 bg-white border-r border-stone-200/90 flex flex-col shrink-0 md:h-screen md:sticky md:top-0 z-40">
+    <!-- Header Brand Sidebar -->
+    <div class="h-20 flex items-center justify-between px-6 border-b border-stone-200/80">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-200 to-indigo-100 border-2 border-sky-300 flex items-center justify-center text-sky-800 shadow-sm group-hover:scale-105 transition-transform">
+          <i data-lucide="calculator" class="w-5 h-5 stroke-[2.2]"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-base font-extrabold tracking-tight text-slate-900">
+            Ruang<span class="text-sky-600">Matematika</span>
+          </span>
+          <span class="text-[10px] font-bold text-sky-700 bg-sky-100 px-1.5 py-0.5 rounded-md self-start uppercase tracking-wider">
+            Admin Portal
+          </span>
+        </div>
+      </a>
+
+      <!-- Mobile Nav Toggle -->
+      <button type="button" id="admin-menu-toggle" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-stone-100 focus:outline-none" aria-label="Buka Menu Admin">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Navigation Menu Items -->
+    <div id="admin-nav-content" class="hidden md:flex flex-col justify-between flex-grow p-4 space-y-6 overflow-y-auto">
+      <div class="space-y-1.5 text-xs font-bold">
+        <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+          Menu Utama
+        </div>
+
+        <a href="#kelola-materi" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-sky-50 text-sky-800 border border-sky-200/70 shadow-sm">
+          <i data-lucide="layers" class="w-4 h-4 text-sky-600"></i>
+          <span>Kelola Materi</span>
+        </a>
+
+        <a href="#form-tambah-materi" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 transition-colors">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-600"></i>
+          <span>Tambah Materi Baru</span>
+        </a>
+
+        <a href="#ringkasan-statistik" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 transition-colors">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-amber-600"></i>
+          <span>Statistik Konten</span>
+        </a>
+
+        <a href="post-detail.html" target="_blank" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-stone-100 transition-colors">
+          <span class="flex items-center gap-3">
+            <i data-lucide="external-link" class="w-4 h-4 text-purple-600"></i>
+            <span>Lihat Halaman Siswa</span>
+          </span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        </a>
+      </div>
+
+      <!-- Quick Metrics Pill in Sidebar -->
+      <div class="bg-stone-50 rounded-2xl p-4 border border-stone-200/80 space-y-3">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="database" class="w-4 h-4 text-sky-600"></i>
+            Database Materi
+          </span>
+          <span id="sidebar-total-badge" class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 text-[10px]">4 Topik</span>
+        </div>
+        <div class="w-full bg-stone-200 rounded-full h-2 overflow-hidden">
+          <div class="bg-sky-500 h-2 rounded-full" style="width: 65%;"></div>
+        </div>
+        <div class="flex justify-between text-[11px] font-semibold text-slate-500">
+          <span id="sidebar-smp">SMP: 2</span>
+          <span id="sidebar-sma">SMA: 2</span>
+        </div>
+      </div>
+
+      <!-- User Profile & Keluar -->
+      <div class="pt-4 border-t border-stone-200">
+        <div class="flex items-center justify-between p-2 rounded-2xl bg-stone-50 border border-stone-200/80 mb-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-sky-200 text-sky-800 flex items-center justify-center font-bold text-xs">
+              AD
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs font-bold text-slate-800">Admin Pengajar</span>
+              <span class="text-[10px] text-slate-500">admin@ruangmatematika.id</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="index.html" class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-bold border border-rose-200 transition-colors">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+          <span>Keluar ke Halaman Utama</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTENT AREA ================= -->
+  <main class="flex-grow p-4 sm:p-6 lg:p-8 space-y-8 overflow-x-hidden">
+    
+    <!-- Top Header Bar (Desktop & Mobile) -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-stone-200/80 gap-4">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
+          <span>Dashboard</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          <span class="text-sky-700">Manajemen Konten Edukasi</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          Pusat Pengelolaan Materi Matematika
+        </h1>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-3">
+        <a href="#form-tambah-materi" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 active:scale-95 transition-all">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Buat Materi Baru</span>
+        </a>
+        <a href="index.html" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white hover:bg-stone-50 border border-stone-200 text-slate-700 font-bold text-xs shadow-sm transition-all">
+          <i data-lucide="globe" class="w-4 h-4 text-slate-500"></i>
+          <span class="hidden sm:inline">Pratinjau Web</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Ringkasan Statistik Kartu Pastel -->
+    <section id="ringkasan-statistik" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      
+      <!-- Card 1: Total Materi -->
+      <div class="bg-white rounded-3xl border-2 border-sky-100 p-5 shadow-playful-blue flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-500 block mb-1">Total Materi Aktif</span>
+          <h3 id="stat-total" class="text-3xl font-extrabold text-slate-900">4</h3>
+          <span class="text-[11px] font-bold text-sky-700 mt-1 inline-block">Kurikulum Merdeka</span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center">
+          <i data-lucide="book-open" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 2: Jenjang SMP -->
+      <div class="bg-white rounded-3xl border-2 border-emerald-100 p-5 shadow-playful-mint flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-500 block mb-1">Jenjang SMP</span>
+          <h3 id="stat-smp" class="text-3xl font-extrabold text-slate-900">2</h3>
+          <span class="text-[11px] font-bold text-emerald-700 mt-1 inline-block">Kelas 7 &amp; 8</span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+          <i data-lucide="backpack" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 3: Jenjang SMA -->
+      <div class="bg-white rounded-3xl border-2 border-amber-100 p-5 shadow-playful-amber flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-500 block mb-1">Jenjang SMA</span>
+          <h3 id="stat-sma" class="text-3xl font-extrabold text-slate-900">2</h3>
+          <span class="text-[11px] font-bold text-amber-700 mt-1 inline-block">Kelas 10 &amp; 11</span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center">
+          <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 4: Video Terhubung -->
+      <div class="bg-white rounded-3xl border-2 border-rose-100 p-5 shadow-playful-rose flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold text-slate-500 block mb-1">Video YouTube</span>
+          <h3 id="stat-video" class="text-3xl font-extrabold text-slate-900">4</h3>
+          <span class="text-[11px] font-bold text-rose-700 mt-1 inline-block">Terintegrasi HD</span>
+        </div>
+        <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center">
+          <i data-lucide="video" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= FORM TAMBAH MATERI BARU ================= -->
+    <section id="form-tambah-materi" class="bg-white rounded-3xl border-2 border-stone-200/90 p-6 sm:p-8 shadow-playful space-y-6">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-stone-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+            <i data-lucide="file-plus-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Form Tambah Materi Baru</h2>
+            <p class="text-xs text-slate-500 font-medium">Lengkapi formulir di bawah ini beserta sintaks rumus LaTeX/KaTeX.</p>
+          </div>
+        </div>
+        <span class="hidden sm:inline-flex px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+          Live KaTeX Preview
+        </span>
+      </div>
+
+      <form id="form-materi" class="space-y-6" onsubmit="handleFormSubmit(event)">
+        
+        <!-- Baris 1: Judul Materi & Jenjang/Kelas -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+          <!-- Judul Materi (7 cols) -->
+          <div class="md:col-span-7 space-y-1.5">
+            <label for="input-judul" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Judul Materi <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="input-judul" 
+              required
+              placeholder="Contoh: Logaritma & Sifat Operasinya" 
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+            >
+          </div>
+
+          <!-- Jenjang & Kelas (5 cols) -->
+          <div class="md:col-span-5 space-y-1.5">
+            <label for="select-jenjang" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Jenjang &amp; Kelas <span class="text-rose-500">*</span>
+            </label>
+            <select 
+              id="select-jenjang" 
+              required
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+            >
+              <option value="" disabled selected>Pilih Tingkat Kelas...</option>
+              <optgroup label="Jenjang SMP (Pastel Biru)">
+                <option value="SMP - Kelas 7">SMP: Kelas 7</option>
+                <option value="SMP - Kelas 8">SMP: Kelas 8</option>
+                <option value="SMP - Kelas 9">SMP: Kelas 9</option>
+              </optgroup>
+              <optgroup label="Jenjang SMA (Pastel Kuning/Amber)">
+                <option value="SMA - Kelas 10">SMA: Kelas 10</option>
+                <option value="SMA - Kelas 11">SMA: Kelas 11</option>
+                <option value="SMA - Kelas 12">SMA: Kelas 12</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <!-- Baris Tambahan: Sub-judul/Bab & Ringkasan Singkat -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+          <!-- Sub-judul / Bab (5 cols) -->
+          <div class="md:col-span-5 space-y-1.5">
+            <label for="input-subtitle" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Sub-judul / Bab
+            </label>
+            <input 
+              type="text" 
+              id="input-subtitle" 
+              placeholder="Contoh: Operasi Logaritma & Sifat Pemangkatan" 
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+            >
+          </div>
+
+          <!-- Ringkasan Singkat Kartu (7 cols) -->
+          <div class="md:col-span-7 space-y-1.5">
+            <label for="input-summary" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Ringkasan Singkat (Kartu Beranda)
+            </label>
+            <input 
+              type="text" 
+              id="input-summary" 
+              placeholder="Penjelasan ringkas 1-2 kalimat untuk pratinjau kartu beranda..." 
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+            >
+          </div>
+        </div>
+
+        <!-- Baris 2: Kategori/Bab & URL Video YouTube -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+          <!-- Kategori / Bab (5 cols) -->
+          <div class="md:col-span-5 space-y-1.5">
+            <label for="input-kategori" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Kategori / Bab <span class="text-rose-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="input-kategori" 
+              required
+              placeholder="Misal: Aljabar, Geometri, Kalkulus" 
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+            >
+          </div>
+
+          <!-- URL Video YouTube (7 cols) -->
+          <div class="md:col-span-7 space-y-1.5">
+            <label for="input-video" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              URL Video YouTube
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-rose-500">
+                <i data-lucide="youtube" class="w-4 h-4"></i>
+              </div>
+              <input 
+                type="url" 
+                id="input-video" 
+                placeholder="https://www.youtube.com/watch?v=..." 
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-semibold transition-all"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Baris 3: Gambar Ilustrasi (File Input) -->
+        <div class="space-y-1.5">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+            Gambar Ilustrasi / Diagram Pendukung
+          </label>
+          <div class="border-2 border-dashed border-stone-300 rounded-2xl p-5 bg-stone-50/60 hover:bg-stone-50 hover:border-sky-300 transition-all text-center flex flex-col items-center justify-center gap-2">
+            <div class="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-slate-500 shadow-sm">
+              <i data-lucide="upload-cloud" class="w-5 h-5 text-sky-600"></i>
+            </div>
+            <div class="text-xs text-slate-600 font-medium">
+              <label for="input-gambar" class="font-bold text-sky-700 hover:text-sky-800 cursor-pointer">
+                Klik untuk unggah file gambar
+              </label>
+              <span>atau seret &amp; lepas ke sini (PNG, JPG, SVG maks 2MB)</span>
+            </div>
+            <input type="file" id="input-gambar" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+            <span id="selected-file-name" class="text-xs font-bold text-emerald-700 hidden"></span>
+          </div>
+        </div>
+
+        <!-- Baris 4: Textarea Isi Materi & KaTeX -->
+        <div class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label for="materi-konten" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Isi Materi (Konten Teks &amp; Sintaks KaTeX / LaTeX) <span class="text-rose-500">*</span>
+            </label>
+            
+            <!-- Quick LaTeX Insert Pills -->
+            <div class="flex items-center flex-wrap gap-1.5 text-[11px] font-bold">
+              <span class="text-slate-400 mr-1">Simbol Rumus:</span>
+              <button type="button" onclick="insertLatex('$$\\frac{a}{b}$$')" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-sky-100 hover:text-sky-800 transition-colors">
+                $\frac{a}{b}$
+              </button>
+              <button type="button" onclick="insertLatex('$$\\sqrt{x}$$')" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-sky-100 hover:text-sky-800 transition-colors">
+                $\sqrt{x}$
+              </button>
+              <button type="button" onclick="insertLatex('$$a^2 + b^2 = c^2$$')" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-sky-100 hover:text-sky-800 transition-colors">
+                $a^2+b^2=c^2$
+              </button>
+              <button type="button" onclick="insertLatex('$$\\sum_{i=1}^{n} x_i$$')" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-sky-100 hover:text-sky-800 transition-colors">
+                $\sum$
+              </button>
+              <button type="button" onclick="insertLatex('$$f\'(x) = \\lim_{h \\to 0} \\frac{f(x+h)-f(x)}{h}$$')" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-sky-100 hover:text-sky-800 transition-colors">
+                $\lim$
+              </button>
+            </div>
+          </div>
+
+          <!-- Toolbar Sisip Komponen Visual Pastel -->
+          <div class="p-3 bg-stone-100/80 border border-stone-200/90 rounded-2xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <i data-lucide="layout-template" class="w-3.5 h-3.5 text-sky-600"></i>
+                Toolbar Sisip Komponen Visual:
+              </span>
+              <span class="text-[10px] text-slate-400 font-semibold hidden sm:inline">Klik tombol untuk menyisipkan kotak visual pastel</span>
+            </div>
+            <div class="flex items-center flex-wrap gap-2 text-xs font-bold">
+              <!-- Box Rumus Utama (Hijau) -->
+              <button type="button" onclick="insertVisualBox('rumus-utama')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 shadow-sm transition-all active:scale-95">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                <span>+ Box Rumus Utama (Hijau)</span>
+              </button>
+
+              <!-- Box Catatan Penting (Merah) -->
+              <button type="button" onclick="insertVisualBox('catatan-penting')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 border border-rose-300 shadow-sm transition-all active:scale-95">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span>+ Box Catatan Penting (Merah)</span>
+              </button>
+
+              <!-- Box Tips & Trik (Kuning) -->
+              <button type="button" onclick="insertVisualBox('tips-trik')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 shadow-sm transition-all active:scale-95">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <span>+ Box Tips &amp; Trik (Kuning)</span>
+              </button>
+
+              <!-- Box Contoh Soal (Biru) -->
+              <button type="button" onclick="insertVisualBox('contoh-soal')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-900 border border-sky-300 shadow-sm transition-all active:scale-95">
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+                <span>+ Box Contoh Soal (Biru)</span>
+              </button>
+            </div>
+          </div>
+
+          <textarea 
+            id="materi-konten" 
+            rows="6" 
+            required
+            placeholder="Ketik penjelasan konsep di sini. Gunakan $...$ untuk rumus inline dan $$...$$ untuk rumus blok. Contoh: Rumus luas lingkaran adalah $$L = \pi r^2$$ dengan $\pi \approx 3{,}14$." 
+            class="w-full p-4 rounded-2xl border border-stone-200 bg-stone-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-300 text-sm font-medium leading-relaxed transition-all"
+          ></textarea>
+        </div>
+
+        <!-- Baris 5: Kotak Preview Rumus Real-Time -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="eye" class="w-3.5 h-3.5 text-sky-600"></i>
+              Preview Rumus KaTeX Real-Time
+            </span>
+            <span class="text-[10px] font-semibold text-slate-400">Ter-render otomatis saat mengetik</span>
+          </div>
+
+          <div 
+            id="katex-preview" 
+            class="w-full min-h-[90px] p-4 rounded-2xl bg-sky-50/60 border-2 border-sky-100 text-slate-800 text-sm leading-relaxed overflow-x-auto"
+          >
+            <span class="text-slate-400 italic text-xs">
+              Ketik teks atau rumus LaTeX pada kotak di atas untuk melihat preview render matematika di sini...
+            </span>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi Form -->
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
+          <button 
+            type="button" 
+            id="btn-cancel-edit"
+            onclick="cancelEditMode()" 
+            class="hidden px-5 py-2.5 rounded-xl border border-rose-200 text-rose-700 hover:bg-rose-50 text-xs font-bold transition-all"
+          >
+            Batal Sunting
+          </button>
+          <button 
+            type="reset" 
+            onclick="resetFormCustom()" 
+            class="px-5 py-2.5 rounded-xl border border-stone-200 text-slate-600 hover:bg-stone-100 text-xs font-bold transition-all"
+          >
+            Bersihkan Form
+          </button>
+          <button 
+            type="submit" 
+            id="btn-submit-form"
+            class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/25 active:scale-95 transition-all"
+          >
+            <i data-lucide="send" id="icon-submit-form" class="w-4 h-4"></i>
+            <span id="text-submit-form">Publikasikan Materi</span>
+          </button>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- ================= TABEL KELOLA MATERI (DAFTAR POSTINGAN) ================= -->
+    <section id="kelola-materi" class="bg-white rounded-3xl border-2 border-stone-200/90 p-6 sm:p-8 shadow-playful space-y-6">
+      
+      <!-- Table Header & Controls -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Daftar Materi Terpublikasi</h2>
+          <p class="text-xs text-slate-500 font-medium">Kelola, sunting, atau hapus konten pelajaran yang telah tersedia untuk siswa.</p>
+        </div>
+
+        <!-- Filter & Search Table -->
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <!-- Filter Jenjang Dropdown -->
+          <select id="table-filter-jenjang" onchange="filterTable()" class="px-3 py-2 rounded-xl border border-stone-200 bg-stone-50 text-xs font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-300">
+            <option value="ALL">Semua Jenjang</option>
+            <option value="SMP">Jenjang SMP</option>
+            <option value="SMA">Jenjang SMA</option>
+          </select>
+
+          <!-- Search Filter -->
+          <div class="relative w-48 sm:w-56">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="table-search" 
+              oninput="filterTable()" 
+              placeholder="Cari materi..." 
+              class="w-full pl-8 pr-3 py-2 rounded-xl border border-stone-200 bg-stone-50 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-300"
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsive Table Container -->
+      <div class="overflow-x-auto rounded-2xl border border-stone-200">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-stone-50/90 border-b border-stone-200 text-slate-600 font-bold uppercase tracking-wider text-[11px]">
+              <th class="py-3.5 px-4">No</th>
+              <th class="py-3.5 px-4">Judul Materi &amp; Bab</th>
+              <th class="py-3.5 px-4">Jenjang &amp; Kelas</th>
+              <th class="py-3.5 px-4">Media</th>
+              <th class="py-3.5 px-4">Tanggal Diperbarui</th>
+              <th class="py-3.5 px-4 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="materi-table-body" class="divide-y divide-stone-100 font-medium text-slate-700">
+            
+            <!-- Row 1: Aritmetika Sosial -->
+            <tr class="hover:bg-sky-50/40 transition-colors" data-jenjang="SMP" data-title="Aritmetika Sosial: Untung, Rugi & Bunga">
+              <td class="py-3.5 px-4 font-bold text-slate-400">1</td>
+              <td class="py-3.5 px-4">
+                <div class="font-bold text-slate-900 text-sm">Aritmetika Sosial</div>
+                <div class="text-[11px] text-slate-500 font-semibold">Aljabar &amp; Finansial</div>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 text-[11px] font-bold border border-sky-200">
+                  <i data-lucide="backpack" class="w-3 h-3"></i>
+                  SMP - Kelas 7
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                  <i data-lucide="video" class="w-3 h-3"></i>
+                  12 Menit
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+                28 Okt 2026
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center justify-center gap-1.5">
+                  <a href="post-detail.html" target="_blank" class="p-1.5 rounded-lg text-slate-600 hover:text-sky-700 hover:bg-sky-50 transition-colors" title="Lihat Materi">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                  </a>
+                  <button type="button" onclick="editRow(this)" class="p-1.5 rounded-lg text-amber-700 hover:bg-amber-50 transition-colors" title="Sunting">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" onclick="deleteRow(this)" class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2: Teorema Pythagoras -->
+            <tr class="hover:bg-sky-50/40 transition-colors" data-jenjang="SMP" data-title="Teorema Pythagoras Segitiga Siku-siku">
+              <td class="py-3.5 px-4 font-bold text-slate-400">2</td>
+              <td class="py-3.5 px-4">
+                <div class="font-bold text-slate-900 text-sm">Teorema Pythagoras</div>
+                <div class="text-[11px] text-slate-500 font-semibold">Geometri Bidang Datar</div>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 text-[11px] font-bold border border-sky-200">
+                  <i data-lucide="backpack" class="w-3 h-3"></i>
+                  SMP - Kelas 8
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                  <i data-lucide="video" class="w-3 h-3"></i>
+                  18 Menit
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+                25 Okt 2026
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center justify-center gap-1.5">
+                  <a href="index.html#materi-pythagoras" class="p-1.5 rounded-lg text-slate-600 hover:text-sky-700 hover:bg-sky-50 transition-colors" title="Lihat Materi">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                  </a>
+                  <button type="button" onclick="editRow(this)" class="p-1.5 rounded-lg text-amber-700 hover:bg-amber-50 transition-colors" title="Sunting">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" onclick="deleteRow(this)" class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3: Trigonometri Dasar -->
+            <tr class="hover:bg-amber-50/40 transition-colors" data-jenjang="SMA" data-title="Trigonometri Dasar Segitiga Istimewa">
+              <td class="py-3.5 px-4 font-bold text-slate-400">3</td>
+              <td class="py-3.5 px-4">
+                <div class="font-bold text-slate-900 text-sm">Trigonometri Dasar</div>
+                <div class="text-[11px] text-slate-500 font-semibold">Trigonometri Analitik</div>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-[11px] font-bold border border-amber-200">
+                  <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                  SMA - Kelas 10
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                  <i data-lucide="video" class="w-3 h-3"></i>
+                  25 Menit
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+                22 Okt 2026
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center justify-center gap-1.5">
+                  <a href="index.html#materi-trigonometri" class="p-1.5 rounded-lg text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-colors" title="Lihat Materi">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                  </a>
+                  <button type="button" onclick="editRow(this)" class="p-1.5 rounded-lg text-amber-700 hover:bg-amber-50 transition-colors" title="Sunting">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" onclick="deleteRow(this)" class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 4: Turunan Fungsi Aljabar -->
+            <tr class="hover:bg-amber-50/40 transition-colors" data-jenjang="SMA" data-title="Turunan Fungsi Aljabar Diferensial">
+              <td class="py-3.5 px-4 font-bold text-slate-400">4</td>
+              <td class="py-3.5 px-4">
+                <div class="font-bold text-slate-900 text-sm">Turunan Fungsi Aljabar</div>
+                <div class="text-[11px] text-slate-500 font-semibold">Kalkulus Diferensial</div>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-[11px] font-bold border border-amber-200">
+                  <i data-lucide="graduation-cap" class="w-3 h-3"></i>
+                  SMA - Kelas 11
+                </span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">
+                  <i data-lucide="video" class="w-3 h-3"></i>
+                  20 Menit
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+                18 Okt 2026
+              </td>
+              <td class="py-3.5 px-4">
+                <div class="flex items-center justify-center gap-1.5">
+                  <a href="index.html#materi-turunan" class="p-1.5 rounded-lg text-slate-600 hover:text-amber-700 hover:bg-amber-50 transition-colors" title="Lihat Materi">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                  </a>
+                  <button type="button" onclick="editRow(this)" class="p-1.5 rounded-lg text-amber-700 hover:bg-amber-50 transition-colors" title="Sunting">
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" onclick="deleteRow(this)" class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= NOTIFIKASI TOAST (PLAYFUL PASTEL) ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 pointer-events-none flex items-center gap-3 px-5 py-3 rounded-2xl bg-white border-2 border-emerald-300 shadow-xl text-xs font-bold text-emerald-950">
+    <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+      <i data-lucide="check" class="w-5 h-5"></i>
+    </div>
+    <span id="toast-message">Materi berhasil disimpan!</span>
+  </div>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    const apiBase = window.location.port === '8000' ? 'http://localhost:5000' : window.location.origin;
+    const API_BASE_URL = `${apiBase}/api/posts`;
+    const STATS_API_URL = `${apiBase}/api/stats`;
+
+    let allPostsCache = [];
+    let editingId = null;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // 1. Inisialisasi ikon Lucide
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // 2. Inisialisasi KaTeX Auto-Render untuk isi halaman & contoh
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+
+      // 3. Setup Listener Input KaTeX Real-Time
+      const textarea = document.getElementById('materi-konten');
+      if (textarea) {
+        textarea.addEventListener('input', updateKatexPreview);
+      }
+
+      // 4. Mobile Menu Toggle
+      const toggleBtn = document.getElementById('admin-menu-toggle');
+      const navContent = document.getElementById('admin-nav-content');
+      if (toggleBtn && navContent) {
+        toggleBtn.addEventListener('click', function () {
+          navContent.classList.toggle('hidden');
+        });
+      }
+
+      // 5. Muat data materi dan statistik dari Backend API
+      loadPostsFromAPI();
+    });
+
+    // 5. Muat data statistik dari Backend API (GET /api/stats)
+    async function loadStatsFromAPI() {
+      try {
+        const res = await fetch(STATS_API_URL);
+        if (!res.ok) throw new Error('Status: ' + res.status);
+        const stats = await res.json();
+
+        const totalEl = document.getElementById('stat-total');
+        const smpEl = document.getElementById('stat-smp');
+        const smaEl = document.getElementById('stat-sma');
+        const videoEl = document.getElementById('stat-video');
+        const sidebarBadge = document.getElementById('sidebar-total-badge');
+        const sidebarSmp = document.getElementById('sidebar-smp');
+        const sidebarSma = document.getElementById('sidebar-sma');
+
+        if (totalEl) totalEl.textContent = stats.total;
+        if (smpEl) smpEl.textContent = stats.smp;
+        if (smaEl) smaEl.textContent = stats.sma;
+        if (videoEl) videoEl.textContent = stats.with_video;
+        if (sidebarBadge) sidebarBadge.textContent = stats.total + ' Topik';
+        if (sidebarSmp) sidebarSmp.textContent = 'SMP: ' + stats.smp;
+        if (sidebarSma) sidebarSma.textContent = 'SMA: ' + stats.sma;
+      } catch (err) {
+        console.warn('[Admin] Menggunakan kalkulasi lokal untuk stats:', err.message);
+      }
+    }
+
+    // 6. Muat data dari Backend API (GET /api/posts)
+    async function loadPostsFromAPI() {
+      try {
+        loadStatsFromAPI();
+        const response = await fetch(API_BASE_URL);
+        if (!response.ok) throw new Error('Status: ' + response.status);
+        const resData = await response.json();
+        
+        if (resData.success && Array.isArray(resData.data) && resData.data.length > 0) {
+          allPostsCache = resData.data;
+          renderTableRows(resData.data);
+        }
+      } catch (err) {
+        console.warn('[Admin] Menggunakan data lokal (Backend API tidak aktif atau beda port):', err.message);
+      }
+    }
+
+    // Render baris tabel dari data API
+    function renderTableRows(posts) {
+      const tbody = document.getElementById('materi-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+      posts.forEach((post, index) => {
+        const isSmp = post.level === 'SMP';
+        const tr = document.createElement('tr');
+        tr.className = isSmp ? 'hover:bg-sky-50/40 transition-colors' : 'hover:bg-amber-50/40 transition-colors';
+        tr.setAttribute('data-id', post.id);
+        tr.setAttribute('data-jenjang', post.level);
+        tr.setAttribute('data-title', post.title);
+
+        const jenjangBadge = isSmp 
+          ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 text-[11px] font-bold border border-sky-200"><i data-lucide="backpack" class="w-3 h-3"></i>SMP - Kelas ${post.grade}</span>`
+          : `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-[11px] font-bold border border-amber-200"><i data-lucide="graduation-cap" class="w-3 h-3"></i>SMA - Kelas ${post.grade}</span>`;
+
+        const videoBadge = post.video_url 
+          ? `<a href="${post.video_url}" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100 hover:bg-rose-100 transition-colors"><i data-lucide="video" class="w-3 h-3"></i>Video Ada</a>`
+          : `<span class="text-slate-400 text-[11px] italic">Tanpa Video</span>`;
+
+        tr.innerHTML = `
+          <td class="py-3.5 px-4 font-bold text-slate-400">${index + 1}</td>
+          <td class="py-3.5 px-4">
+            <div class="font-bold text-slate-900 text-sm">${post.title}</div>
+            <div class="text-[11px] text-slate-500 font-semibold">${post.subtitle ? post.subtitle + ' • ' : ''}${post.category}</div>
+          </td>
+          <td class="py-3.5 px-4">${jenjangBadge}</td>
+          <td class="py-3.5 px-4">${videoBadge}</td>
+          <td class="py-3.5 px-4 text-slate-500 text-[11px]">
+            ${post.created_at ? post.created_at.substring(0, 10) : 'Tersedia'}
+          </td>
+          <td class="py-3.5 px-4">
+            <div class="flex items-center justify-center gap-1.5">
+              <a href="post-detail.html?id=${post.id}" target="_blank" class="p-1.5 rounded-lg text-slate-600 hover:text-sky-700 hover:bg-sky-50 transition-colors" title="Lihat Materi">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+              <button type="button" onclick="editRow(this, ${post.id})" class="p-1.5 rounded-lg text-amber-700 hover:bg-amber-50 transition-colors" title="Sunting (Edit)">
+                <i data-lucide="edit-3" class="w-4 h-4"></i>
+              </button>
+              <button type="button" onclick="deleteRow(this, ${post.id})" class="p-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    // 7. Fungsi Render Real-Time KaTeX Preview (Mendukung HTML & KaTeX)
+    function updateKatexPreview() {
+      const textarea = document.getElementById('materi-konten');
+      const previewBox = document.getElementById('katex-preview');
+      if (!textarea || !previewBox) return;
+
+      const raw = textarea.value.trim();
+      if (!raw) {
+        previewBox.innerHTML = '<span class="text-slate-400 italic text-xs">Ketik teks atau rumus LaTeX pada kotak di atas untuk melihat preview render matematika di sini...</span>';
+        return;
+      }
+
+      // Render teks & elemen HTML pastel langsung
+      previewBox.innerHTML = raw;
+
+      if (window.renderMathInElement) {
+        renderMathInElement(previewBox, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // 8. Fungsi Sisip Komponen Visual Pastel (Toolbar Shortcut)
+    function insertVisualBox(type) {
+      let snippet = '';
+      switch (type) {
+        case 'rumus-utama':
+          snippet = '<div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-lg mb-4"><strong>Rumus Utama:</strong> <br> $$...$$</div>\n';
+          break;
+        case 'catatan-penting':
+          snippet = '<div class="p-4 bg-rose-50 border-l-4 border-rose-500 rounded-r-lg mb-4"><strong>Perhatian:</strong> <br> ...</div>\n';
+          break;
+        case 'tips-trik':
+          snippet = '<div class="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg mb-4"><strong>Tips Cepat:</strong> <br> ...</div>\n';
+          break;
+        case 'contoh-soal':
+          snippet = '<div class="p-4 bg-sky-50 border-l-4 border-sky-500 rounded-r-lg mb-4"><strong>Contoh Soal:</strong> <br> ...</div>\n';
+          break;
+      }
+      insertLatex(snippet);
+    }
+
+    // 9. Fungsi Sisip Cepat Sintaks LaTeX ke Textarea
+    function insertLatex(code) {
+      const textarea = document.getElementById('materi-konten');
+      if (!textarea) return;
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const text = textarea.value;
+
+      textarea.value = text.substring(0, start) + code + text.substring(end);
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + code.length;
+
+      updateKatexPreview();
+    }
+
+    // 10. Penanganan Pilihan File Gambar
+    function handleFileSelect(e) {
+      const fileNameEl = document.getElementById('selected-file-name');
+      if (e.target.files && e.target.files[0]) {
+        fileNameEl.textContent = '✓ File dipilih: ' + e.target.files[0].name;
+        fileNameEl.classList.remove('hidden');
+      }
+    }
+
+    // 11. Penanganan Submit Form (POST untuk baru, PUT untuk update)
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const judul = document.getElementById('input-judul').value.trim();
+      const subtitle = document.getElementById('input-subtitle').value.trim();
+      const summary = document.getElementById('input-summary').value.trim();
+      const jenjangVal = document.getElementById('select-jenjang').value;
+      const kategori = document.getElementById('input-kategori').value.trim();
+      const video = document.getElementById('input-video').value.trim();
+      const konten = document.getElementById('materi-konten').value.trim();
+      const fileInput = document.getElementById('input-gambar');
+
+      // Pisahkan level dan grade
+      let level = 'SMP';
+      let grade = 7;
+      const match = jenjangVal.match(/(SMP|SMA).*?(\d+)/i);
+      if (match) {
+        level = match[1].toUpperCase();
+        grade = parseInt(match[2], 10);
+      }
+
+      // Siapkan FormData untuk dukungan unggah file via Multer
+      const formData = new FormData();
+      formData.append('title', judul);
+      if (subtitle) formData.append('subtitle', subtitle);
+      if (summary) formData.append('summary', summary);
+      formData.append('level', level);
+      formData.append('grade', grade);
+      formData.append('category', kategori);
+      formData.append('content_latex', konten);
+      if (video) formData.append('video_url', video);
+      if (fileInput && fileInput.files[0]) {
+        formData.append('image', fileInput.files[0]);
+      }
+
+      const targetUrl = editingId ? `${API_BASE_URL}/${editingId}` : API_BASE_URL;
+      const method = editingId ? 'PUT' : 'POST';
+
+      try {
+        const response = await fetch(targetUrl, {
+          method: method,
+          body: formData
+        });
+
+        const result = await response.json();
+        if (response.ok && result.success) {
+          const successMsg = editingId 
+            ? `✨ Materi "${judul}" berhasil diperbarui!`
+            : `🎉 Materi "${judul}" berhasil disimpan ke database!`;
+          showToast(successMsg);
+          cancelEditMode();
+          loadPostsFromAPI();
+          return;
+        } else {
+          throw new Error(result.message || 'Gagal menyimpan ke server');
+        }
+      } catch (err) {
+        console.warn('[Admin] Menggunakan penyimpanan lokal:', err.message);
+        showToast('🎉 Materi "' + judul + '" diproses secara lokal.');
+        cancelEditMode();
+      }
+    }
+
+    // 12. Reset Form
+    function resetFormCustom() {
+      document.getElementById('form-materi').reset();
+      const fileNameEl = document.getElementById('selected-file-name');
+      if (fileNameEl) fileNameEl.classList.add('hidden');
+      updateKatexPreview();
+    }
+
+    // 13. Hapus Baris Materi (DELETE /api/posts/:id)
+    async function deleteRow(btn, id) {
+      const row = btn.closest('tr');
+      if (!row) return;
+
+      const title = row.getAttribute('data-title') || 'materi';
+      if (!confirm('Yakin ingin menghapus materi "' + title + '"?')) return;
+
+      if (id) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/${id}`, { method: 'DELETE' });
+          const resJson = await res.json();
+          if (res.ok && resJson.success) {
+            showToast('🗑️ Materi "' + title + '" berhasil dihapus dari database.');
+            if (editingId === id) cancelEditMode();
+            loadPostsFromAPI();
+            return;
+          }
+        } catch (err) {
+          console.warn('[Admin] Menghapus secara lokal:', err.message);
+        }
+      }
+
+      row.remove();
+      showToast('🗑️ Materi "' + title + '" berhasil dihapus.');
+    }
+
+    // 14. Edit Baris Materi (PUT /api/posts/:id)
+    function editRow(btn, id) {
+      let post = null;
+      if (id && allPostsCache.length > 0) {
+        post = allPostsCache.find(p => p.id === id);
+      }
+
+      if (post) {
+        editingId = post.id;
+        document.getElementById('input-judul').value = post.title || '';
+        document.getElementById('input-subtitle').value = post.subtitle || '';
+        document.getElementById('input-summary').value = post.summary || '';
+        document.getElementById('select-jenjang').value = `${post.level} - Kelas ${post.grade}`;
+        document.getElementById('input-kategori').value = post.category || '';
+        document.getElementById('input-video').value = post.video_url || '';
+        document.getElementById('materi-konten').value = post.content_latex || '';
+        updateKatexPreview();
+
+        // Update tombol aksi
+        const submitText = document.getElementById('text-submit-form');
+        const cancelBtn = document.getElementById('btn-cancel-edit');
+        if (submitText) submitText.textContent = 'Perbarui Materi (Update)';
+        if (cancelBtn) cancelBtn.classList.remove('hidden');
+
+        document.getElementById('form-tambah-materi').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('input-judul').focus();
+        showToast('✏️ Data materi #' + post.id + ' dimuat ke formulir.');
+      } else {
+        const row = btn.closest('tr');
+        if (!row) return;
+        const title = row.getAttribute('data-title');
+        const jenjang = row.getAttribute('data-jenjang');
+
+        document.getElementById('input-judul').value = title;
+        if (jenjang === 'SMP') {
+          document.getElementById('select-jenjang').value = 'SMP - Kelas 7';
+        } else {
+          document.getElementById('select-jenjang').value = 'SMA - Kelas 10';
+        }
+        document.getElementById('form-tambah-materi').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('input-judul').focus();
+        showToast('✏️ Data dimuat ke formulir untuk disunting.');
+      }
+    }
+
+    // 15. Batal Mode Sunting
+    function cancelEditMode() {
+      editingId = null;
+      resetFormCustom();
+      const submitText = document.getElementById('text-submit-form');
+      const cancelBtn = document.getElementById('btn-cancel-edit');
+      if (submitText) submitText.textContent = 'Publikasikan Materi';
+      if (cancelBtn) cancelBtn.classList.add('hidden');
+    }
+
+    // 13. Filter Tabel
+    function filterTable() {
+      const filterJenjang = document.getElementById('table-filter-jenjang').value;
+      const searchKeyword = document.getElementById('table-search').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('#materi-table-body tr');
+
+      rows.forEach(row => {
+        const rowJenjang = row.getAttribute('data-jenjang') || '';
+        const rowTitle = (row.getAttribute('data-title') || '').toLowerCase();
+
+        const matchJenjang = (filterJenjang === 'ALL') || (rowJenjang === filterJenjang);
+        const matchSearch = rowTitle.includes(searchKeyword);
+
+        if (matchJenjang && matchSearch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // 14. Toast Notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
+
